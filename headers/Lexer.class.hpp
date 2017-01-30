@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <list>
+#include "Node.class.hpp"
 
 enum e_tk_instr {
 	TK_INSTR_PUSH,
@@ -40,6 +42,7 @@ public:
 	void read(std::string fileName);
 
 private:
+	std::list<Node> _dataList;
 	std::vector<std::string> _instr = {
 		"push",
 		"pop",

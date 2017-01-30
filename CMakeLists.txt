@@ -8,7 +8,9 @@ include_directories(headers)
 set(SOURCE_FILES
     srcs/main.cpp
     srcs/Lexer.class.cpp
+    srcs/Node.class.cpp
     headers/Lexer.class.hpp
+    headers/Node.class.hpp
     )
 
 add_executable(abstractVM ${SOURCE_FILES})

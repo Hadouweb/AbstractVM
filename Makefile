@@ -9,6 +9,7 @@ INCLUDES = -I ./headers -I ./SFML/include
 
 SRC =   $(SRC_PATH)/main.cpp\
         $(SRC_PATH)/Lexer.class.cpp\
+        $(SRC_PATH)/Node.class.cpp\
 
 OBJ = $(SRC:%.cpp=%.o)
 
