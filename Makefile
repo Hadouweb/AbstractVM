@@ -1,10 +1,10 @@
 CC = clang++
 CFLAGS = -Werror -Wall -Wextra -std=c++11 -g
 
-NAME = abstractVM
+NAME = avm
 
 SRC_PATH = ./srcs
-INCLUDES = -I ./headers -I ./SFML/include
+INCLUDES = -I ./headers
 
 
 SRC =   $(SRC_PATH)/main.cpp\
