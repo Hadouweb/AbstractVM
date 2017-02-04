@@ -37,12 +37,12 @@ private:
 	static Node * tk_instr_mod(std::string str, unsigned int numLine);
 	static Node * tk_instr_print(std::string str, unsigned int numLine);
 	static Node * tk_instr_exit(std::string str, unsigned int numLine);
-	static Node * tk_comment(std::string str, unsigned int numLine);
 	static Node * tk_value_int_8(std::string str, unsigned int numLine);
 	static Node * tk_value_int_16(std::string str, unsigned int numLine);
 	static Node * tk_value_int_32(std::string str, unsigned int numLine);
 	static Node * tk_value_float(std::string str, unsigned int numLine);
 	static Node * tk_value_double(std::string str, unsigned int numLine);
+	static Node * tk_comment(std::string str, std::string part, unsigned int numLine);
 
 	std::list<Node*> _nodeList;
 	std::vector<Node * (*)(std::string, unsigned int)> _tk = {
@@ -57,7 +57,6 @@ private:
 		Lexer::tk_instr_mod,
 		Lexer::tk_instr_print,
 		Lexer::tk_instr_exit,
-		Lexer::tk_comment,
 		Lexer::tk_value_int_8,
 		Lexer::tk_value_int_16,
 		Lexer::tk_value_int_32,

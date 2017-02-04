@@ -122,9 +122,14 @@ Node * Lexer::tk_instr_exit(std::string str, unsigned int numLine) {
 	return NULL;
 }
 
-Node * Lexer::tk_comment(std::string str, unsigned int numLine) {
-	if (str.compare(";") == 0) {
-		return new Node(TK_COMMENT, numLine);
+Node * Lexer::tk_comment(std::string str, std::string part, unsigned int numLine) {
+	std::size_t index = part.find(';');
+	if (index != std::string::npos) {
+		std::size_t index = str.find(';');
+		std::string comment = str.substr(index, str.length());
+		Node *n = new Node(TK_COMMENT, numLine);
+		n->setComment(comment);
+		return n;
 	}
 	return NULL;
 }
@@ -138,7 +143,7 @@ Node *Lexer::tk_value_int_8(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("int8") == 0) {
 		Node *n = new Node(TK_VALUE_INT_8, numLine);
-		n->setValueInt8(std::stoi(val));
+		n->setValue(std::stod(val));
 		return n;
 	}
 	return NULL;
@@ -153,7 +158,7 @@ Node *Lexer::tk_value_int_16(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("int16") == 0) {
 		Node *n = new Node(TK_VALUE_INT_16, numLine);
-		n->setValueInt16(std::stoi(val));
+		n->setValue(std::stod(val));
 		return n;
 	}
 	return NULL;
@@ -168,7 +173,7 @@ Node *Lexer::tk_value_int_32(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("int32") == 0) {
 		Node *n = new Node(TK_VALUE_INT_32, numLine);
-		n->setValueInt32(std::stoi(val));
+		n->setValue(std::stod(val));
 		return n;
 	}
 	return NULL;
@@ -183,7 +188,7 @@ Node *Lexer::tk_value_float(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("float") == 0) {
 		Node *n = new Node(TK_VALUE_FLOAT, numLine);
-		n->setValueFloat(std::stof(val));
+		n->setValue(std::stod(val));
 		return n;
 	}
 	return NULL;
@@ -198,7 +203,7 @@ Node *Lexer::tk_value_double(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("double") == 0) {
 		Node *n = new Node(TK_VALUE_DOUBLE, numLine);
-		n->setValueDouble(std::stod(val));
+		n->setValue(std::stod(val));
 		return n;
 	}
 	return NULL;
@@ -207,17 +212,21 @@ Node *Lexer::tk_value_double(std::string str, unsigned int numLine) {
 void Lexer::parseLine(std::string line, unsigned int numLine) {
 	std::istringstream is(line);
 	std::string part;
+	bool tokenComment = false;
 	while (getline(is, part, ' ')) {
 		if (!part.empty()) {
-			for (std::vector<Node * (*)(std::string, unsigned int)>::iterator it = this->_tk.begin(); it != this->_tk.end(); ++it) {
-				Node * n = (*it)(part, numLine);
-				if (n != NULL)
-					this->_nodeList.push_back(n);
+			Node * nComment = tk_comment(is.str(), part, numLine);
+			if (nComment != NULL) {
+				tokenComment = true;
+				this->_nodeList.push_back(nComment);
 			}
-			/*std::list<Node*> nodeList = this->getNodeList();
-			for (std::list<Node*>::iterator it = nodeList.begin(); it != nodeList.end(); ++it) {
-				std::cout << *(*it);
-			}*/
+			if (tokenComment == false) {
+				for (std::vector<Node *(*)(std::string, unsigned int)>::iterator it = this->_tk.begin(); it != this->_tk.end(); ++it) {
+					Node *n = (*it)(part, numLine);
+					if (n != NULL)
+						this->_nodeList.push_back(n);
+				}
+			}
 		}
 	}
 }

@@ -33,8 +33,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/srcs/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+            <state relative-caret-position="144">
+              <caret line="9" column="92" selection-start-line="9" selection-start-column="92" selection-end-line="9" selection-end-column="92" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -42,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Lexer.class.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Lexer.class.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+            <state relative-caret-position="174">
+              <caret line="206" column="17" selection-start-line="206" selection-start-column="17" selection-end-line="206" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -55,11 +55,10 @@
       <file leaf-file-name="Lexer.class.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/headers/Lexer.class.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="39" column="68" selection-start-line="39" selection-start-column="68" selection-end-line="39" selection-end-column="68" />
+            <state relative-caret-position="238">
+              <caret line="44" column="18" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
               <folding>
                 <element signature="e#38#57#0" expanded="true" />
-                <marker date="1486218558000" expanded="true" signature="182:2171" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -68,23 +67,20 @@
       <file leaf-file-name="Node.class.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/headers/Node.class.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+            <state relative-caret-position="-2">
+              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
               <folding>
-                <marker date="1486219699000" expanded="true" signature="105:395" ph="{...}" />
+                <element signature="e#48#74#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Node.class.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Node.class.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/srcs/Node.class.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="125" column="33" selection-start-line="125" selection-start-column="33" selection-end-line="125" selection-end-column="33" />
-              <caret line="123" column="33" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
-              <caret line="123" column="19" selection-start-line="123" selection-start-column="19" selection-end-line="123" selection-end-column="19" />
-              <caret line="125" column="19" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="19" />
+            <state relative-caret-position="462">
+              <caret line="93" column="126" selection-start-line="93" selection-start-column="126" selection-end-line="93" selection-end-column="126" />
               <folding />
             </state>
           </provider>
@@ -98,11 +94,11 @@
         <option value="$PROJECT_DIR$/headers/lexer.hpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/Makefile" />
+        <option value="$PROJECT_DIR$/headers/Node.class.hpp" />
         <option value="$PROJECT_DIR$/headers/Lexer.class.hpp" />
         <option value="$PROJECT_DIR$/srcs/main.cpp" />
-        <option value="$PROJECT_DIR$/headers/Node.class.hpp" />
-        <option value="$PROJECT_DIR$/srcs/Node.class.cpp" />
         <option value="$PROJECT_DIR$/srcs/Lexer.class.cpp" />
+        <option value="$PROJECT_DIR$/srcs/Node.class.cpp" />
       </list>
     </option>
   </component>
@@ -113,7 +109,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="982" />
+    <option name="width" value="941" />
     <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -339,15 +335,15 @@
       <updated>1485794909826</updated>
       <workItem from="1485794911106" duration="7930000" />
       <workItem from="1486118915170" duration="3613000" />
-      <workItem from="1486216923664" duration="2953000" />
+      <workItem from="1486216923664" duration="5304000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14496000" />
+    <option name="totallyTimeSpent" value="16847000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="982" height="800" extended-state="0" />
+    <frame x="0" y="0" width="941" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16335079" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -411,7 +407,6 @@
           <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
           <folding>
             <element signature="e#38#57#0" expanded="true" />
-            <marker date="1486218558000" expanded="true" signature="182:2171" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -421,7 +416,7 @@
         <state relative-caret-position="352">
           <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
           <folding>
-            <marker date="1486219699000" expanded="true" signature="105:395" ph="{...}" />
+            <element signature="e#48#74#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -496,52 +491,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/headers/Lexer.class.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="44" column="18" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
+          <folding>
+            <element signature="e#38#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/srcs/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+        <state relative-caret-position="144">
+          <caret line="9" column="92" selection-start-line="9" selection-start-column="92" selection-end-line="9" selection-end-column="92" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/headers/Lexer.class.hpp">
+    <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="39" column="68" selection-start-line="39" selection-start-column="68" selection-end-line="39" selection-end-column="68" />
-          <folding>
-            <element signature="e#38#57#0" expanded="true" />
-            <marker date="1486218558000" expanded="true" signature="182:2171" ph="{...}" />
-          </folding>
+        <state relative-caret-position="174">
+          <caret line="206" column="17" selection-start-line="206" selection-start-column="17" selection-end-line="206" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/headers/Node.class.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        <state relative-caret-position="-2">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
           <folding>
-            <marker date="1486219699000" expanded="true" signature="105:395" ph="{...}" />
+            <element signature="e#48#74#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/srcs/Node.class.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="125" column="33" selection-start-line="125" selection-start-column="33" selection-end-line="125" selection-end-column="33" />
-          <caret line="123" column="33" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
-          <caret line="123" column="19" selection-start-line="123" selection-start-column="19" selection-end-line="123" selection-end-column="19" />
-          <caret line="125" column="19" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+        <state relative-caret-position="462">
+          <caret line="93" column="126" selection-start-line="93" selection-start-column="126" selection-end-line="93" selection-end-column="126" />
           <folding />
         </state>
       </provider>

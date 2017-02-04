@@ -37,26 +37,16 @@ public:
     unsigned int getNumLine() const;
 	static std::string convertEnumTk(e_tk e);
 
-	int8_t getValueInt8() const;
-	int16_t getValueInt16() const;
-	int32_t getValueInt32() const;
-	float getValueFloat() const;
-	double getValueDouble() const;
-
-	void setValueDouble(double _valueDouble);
-	void setValueFloat(float _valueFloat);
-	void setValueInt32(int32_t _valueInt32);
-	void setValueInt16(int16_t _valueInt16);
-	void setValueInt8(int8_t _valueInt8);
+	double getValue() const;
+	void setValue(double _valueDouble);
+	std::string getComment() const;
+	void setComment(std::string comment);
 
 private:
 	Node(void);
 	e_tk _token;
-	int8_t _valueInt8;
-	int16_t _valueInt16;
-	int32_t _valueInt32;
-	float _valueFloat;
-	double _valueDouble;
+	double _value;
+	std::string _comment;
 	unsigned int _numLine;
 };
 
