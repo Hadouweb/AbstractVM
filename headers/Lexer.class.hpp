@@ -25,6 +25,7 @@ public:
 
 private:
 	void parseLine(std::string line, unsigned int numLine);
+
 	static Node * tk_instr_push(std::string str, unsigned int numLine);
 	static Node * tk_instr_pop(std::string str, unsigned int numLine);
 	static Node * tk_instr_dump(std::string str, unsigned int numLine);
@@ -37,8 +38,14 @@ private:
 	static Node * tk_instr_print(std::string str, unsigned int numLine);
 	static Node * tk_instr_exit(std::string str, unsigned int numLine);
 	static Node * tk_comment(std::string str, unsigned int numLine);
+	static Node * tk_value_int_8(std::string str, unsigned int numLine);
+	static Node * tk_value_int_16(std::string str, unsigned int numLine);
+	static Node * tk_value_int_32(std::string str, unsigned int numLine);
+	static Node * tk_value_float(std::string str, unsigned int numLine);
+	static Node * tk_value_double(std::string str, unsigned int numLine);
+
 	std::list<Node*> _nodeList;
-	std::vector<Node * (*)(std::string, unsigned int)> _instr = {
+	std::vector<Node * (*)(std::string, unsigned int)> _tk = {
 		Lexer::tk_instr_push,
 		Lexer::tk_instr_pop,
 		Lexer::tk_instr_dump,
@@ -51,6 +58,11 @@ private:
 		Lexer::tk_instr_print,
 		Lexer::tk_instr_exit,
 		Lexer::tk_comment,
+		Lexer::tk_value_int_8,
+		Lexer::tk_value_int_16,
+		Lexer::tk_value_int_32,
+		Lexer::tk_value_float,
+		Lexer::tk_value_double,
 	};
 };
 
