@@ -11,7 +11,7 @@ enum e_type {
 	DOUBLE,
 };
 
-template <typename T>
+template <class T = int>
 class ParsedNode {
 public:
 	ParsedNode(e_tk pTkInstr, bool pHaveValue);

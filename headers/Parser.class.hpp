@@ -5,6 +5,7 @@
 #include <list>
 #include "Node.class.hpp"
 #include <map>
+#include "ParsedNode.class.hpp"
 
 class Parser {
 public:
@@ -16,19 +17,29 @@ public:
     Parser & operator=(Parser const & rhs);
     void makeParsing(std::list<Node *> nodeList);
 
-	static void parse_instr_push(std::list<Node*>::iterator & it);
-	static void parse_instr_pop(std::list<Node*>::iterator & it);
-	static void parse_instr_dump(std::list<Node*>::iterator & it);
-	static void parse_instr_assert(std::list<Node*>::iterator & it);
-	static void parse_instr_add(std::list<Node*>::iterator & it);
-	static void parse_instr_sub(std::list<Node*>::iterator & it);
-	static void parse_instr_mul(std::list<Node*>::iterator & it);
-	static void parse_instr_div(std::list<Node*>::iterator & it);
-	static void parse_instr_mod(std::list<Node*>::iterator & it);
-	static void parse_instr_print(std::list<Node*>::iterator & it);
-	static void parse_instr_exit(std::list<Node*>::iterator & it);
+	static void parse_instr_push(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_pop(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_dump(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_assert(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_add(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_sub(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_mul(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_div(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_mod(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_print(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	static void parse_instr_exit(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
 
-    std::map<e_tk, void (*)(std::list<Node*>::iterator & it)> instrCheckerMap = {
+	static void parse_value_int_8(Node * n);
+	static void parse_value_int_16(Node * n);
+	static void parse_value_int_32(Node * n);
+	static void parse_value_float(Node * n);
+	static void parse_value_double(Node * n);
+
+	static std::map<e_tk, void (*)(Node *)> makeTypeCheckerMap(void);
+	static std::map<e_tk, void (*)(Node *)> typeCheckerMap;
+
+private:
+    std::map<e_tk, void (*)(std::list<Node*>::iterator & it, std::list<Node *> nodeList)> _instrCheckerMap = {
     	{TK_INSTR_PUSH, Parser::parse_instr_push},
 		{TK_INSTR_POP, Parser::parse_instr_pop},
 		{TK_INSTR_DUMP, Parser::parse_instr_dump},
