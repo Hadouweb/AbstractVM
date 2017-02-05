@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Lexer.class.hpp"
+#include "Parser.class.hpp"
 
 int		main(int ac, char **av) {
 	if (ac > 1) {
@@ -8,8 +9,10 @@ int		main(int ac, char **av) {
 		std::list<Node*> nodeList = l.getNodeList();
 
 		for (std::list<Node*>::iterator it = nodeList.begin(); it != nodeList.end(); ++it) {
-			std::cout << *(*it);
+			;//std::cout << *(*it);
 		}
+
+		Parser p(nodeList);
 
 	} else {
 		Lexer l;

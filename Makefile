@@ -10,6 +10,8 @@ INCLUDES = -I ./headers
 SRC =   $(SRC_PATH)/main.cpp\
         $(SRC_PATH)/Lexer.class.cpp\
         $(SRC_PATH)/Node.class.cpp\
+        $(SRC_PATH)/ParsedNode.class.cpp\
+        $(SRC_PATH)/Parser.class.cpp\
 
 OBJ = $(SRC:%.cpp=%.o)
 
