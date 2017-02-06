@@ -2,14 +2,7 @@
 # define PARSED_NODE_CLASS_HPP
 
 #include "Node.class.hpp"
-
-enum e_type {
-	INT_8,
-	INT_16,
-	INT_32,
-	FLOAT,
-	DOUBLE,
-};
+#include "IOperand.class.hpp"
 
 template <class T = int>
 class ParsedNode {
@@ -22,18 +15,18 @@ public:
     ParsedNode & operator=(ParsedNode const & rhs);
 
     void setValue(T val);
-    void setType(e_type t);
+    void setType(eOperandType t);
 
     e_tk getTkInstr(void) const;
 	bool getHaveValue(void) const;
     T getValue(void) const;
-	e_type getType(void) const;
+	eOperandType getType(void) const;
 
 private:
 	const e_tk _tkInstr;
 	const bool haveValue;
 	T _value;
-	e_type _type;
+	eOperandType _type;
 	ParsedNode(void);
 };
 

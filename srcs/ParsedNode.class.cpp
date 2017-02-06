@@ -37,7 +37,7 @@ void ParsedNode<T>::setValue(T val) {
 }
 
 template <class T>
-void ParsedNode<T>::setType(e_type t) {
+void ParsedNode<T>::setType(eOperandType t) {
 	this->_type = t;
 }
 
@@ -57,7 +57,7 @@ T ParsedNode<T>::getValue(void) const {
 }
 
 template <class T>
-e_type ParsedNode<T>::getType(void) const {
+eOperandType ParsedNode<T>::getType(void) const {
 	return this->_type;
 }
 

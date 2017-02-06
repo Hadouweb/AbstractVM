@@ -12,6 +12,7 @@ SRC =   $(SRC_PATH)/main.cpp\
         $(SRC_PATH)/Node.class.cpp\
         $(SRC_PATH)/ParsedNode.class.cpp\
         $(SRC_PATH)/Parser.class.cpp\
+        $(SRC_PATH)/Operand.class.cpp\
 
 OBJ = $(SRC:%.cpp=%.o)
 

@@ -2,16 +2,19 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/headers/Parser.class.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/Operand.class.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/headers/Lexer.class.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/IOperand.class.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/headers/ParsedNode.class.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/Parser.class.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/headers/Node.class.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/srcs/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/srcs/Parser.class.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/srcs/Lexer.class.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/srcs/ParsedNode.class.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/srcs/Parser.class.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/srcs/Node.class.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/srcs/Operand.class.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/srcs/Lexer.class.cpp" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

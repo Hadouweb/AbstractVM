@@ -12,10 +12,13 @@ set(SOURCE_FILES
     srcs/Node.class.cpp
     srcs/Parser.class.cpp
     srcs/ParsedNode.class.cpp
+    srcs/Operand.class.cpp
     headers/Lexer.class.hpp
     headers/Node.class.hpp
     headers/Parser.class.hpp
     headers/ParsedNode.class.hpp
+    headers/Operand.class.hpp
+    headers/IOperand.class.hpp
     )
 
 add_executable(abstractVM ${SOURCE_FILES})
