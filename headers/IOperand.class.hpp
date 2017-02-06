@@ -1,12 +1,15 @@
 #ifndef IOPERAND_CLASS_HPP
 # define IOPERAND_CLASS_HPP
 
+#include <iostream>
+
 enum eOperandType {
 	INT_8,
 	INT_16,
 	INT_32,
 	FLOAT,
 	DOUBLE,
+	NB_TYPE,
 };
 
 class IOperand {

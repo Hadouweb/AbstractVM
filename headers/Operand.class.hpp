@@ -7,7 +7,7 @@
 template <typename T>
 class Operand : public IOperand {
 public:
-    Operand(void);
+	Operand(std::string pValue);
     Operand(Operand const & src);
 
     ~Operand(void);
@@ -24,10 +24,11 @@ public:
 	virtual const std::string &toString(void) const override;
 
 private:
-	T _value;
 	const int _precision;
 	const eOperandType _type;
-
+	std::string _strValue;
+	T _value;
+	Operand(void);
 };
 
 #endif
