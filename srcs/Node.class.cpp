@@ -73,11 +73,15 @@ unsigned int Node::getNumLine() const {
 	return this->_numLine;
 }
 
-double Node::getValue() const {
+unsigned int Node::getNumCol() const {
+	return this->_numCol;
+}
+
+std::string Node::getValue() const {
 	return this->_value;
 }
 
-void Node::setValue(double v) {
+void Node::setValue(std::string v) {
 	this->_value = v;
 }
 
@@ -91,14 +95,14 @@ void Node::setComment(std::string comment) {
 
 std::ostream &operator<<(std::ostream &os, Node &n) {
 	if (n.getToken() == TK_COMMENT)
-		os << Node::convertEnumTk(n.getToken()) << " val : [" << n.getComment() << "] line : " << n.getNumLine() << std::endl;
+		os << Node::convertEnumTk(n.getToken()) << " val : [" << n.getComment() << "] col : " << n.getNumCol() << " line : " << n.getNumLine() << std::endl;
 	else if (n.getToken() == TK_VALUE_INT_8 ||
 			n.getToken() == TK_VALUE_INT_16 ||
 			n.getToken() == TK_VALUE_INT_32 ||
 			n.getToken() == TK_VALUE_FLOAT ||
 			n.getToken() == TK_VALUE_DOUBLE)
-		os << std::fixed << std::setprecision(4) << Node::convertEnumTk(n.getToken()) << " val : [" << n.getValue() << "] line : " << n.getNumLine() << std::endl;
+		os << std::fixed << std::setprecision(4) << Node::convertEnumTk(n.getToken()) << " val : [" << n.getValue() << "] col : " << n.getNumCol() << " line : " << n.getNumLine() << std::endl;
 	else
-		os << Node::convertEnumTk(n.getToken()) << " line : " << n.getNumLine() << std::endl;
+		os << Node::convertEnumTk(n.getToken()) << " col : " << n.getNumCol() << " line : " << n.getNumLine() << std::endl;
 	return os;
 }

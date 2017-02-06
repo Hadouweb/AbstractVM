@@ -33,21 +33,25 @@ public:
     ~Node(void);
 
     Node & operator=(Node const & rhs);
-	e_tk getToken(void) const;
-    unsigned int getNumLine() const;
+
 	static std::string convertEnumTk(e_tk e);
 
-	double getValue() const;
-	void setValue(double _valueDouble);
+	e_tk getToken(void) const;
+	unsigned int getNumLine() const;
+	unsigned int getNumCol() const;
+	std::string getValue() const;
 	std::string getComment() const;
+
+	void setValue(std::string _valueDouble);
 	void setComment(std::string comment);
 
 private:
 	Node(void);
 	e_tk _token;
-	double _value;
+	std::string _value;
 	std::string _comment;
 	unsigned int _numLine;
+	unsigned int _numCol;
 };
 
 std::ostream & operator<<(std::ostream & os, Node & n);

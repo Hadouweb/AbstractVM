@@ -143,7 +143,7 @@ Node *Lexer::tk_value_int_8(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("int8") == 0) {
 		Node *n = new Node(TK_VALUE_INT_8, numLine);
-		n->setValue(std::stod(val));
+		n->setValue(val);
 		return n;
 	}
 	return NULL;
@@ -158,7 +158,7 @@ Node *Lexer::tk_value_int_16(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("int16") == 0) {
 		Node *n = new Node(TK_VALUE_INT_16, numLine);
-		n->setValue(std::stod(val));
+		n->setValue(val);
 		return n;
 	}
 	return NULL;
@@ -173,7 +173,7 @@ Node *Lexer::tk_value_int_32(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("int32") == 0) {
 		Node *n = new Node(TK_VALUE_INT_32, numLine);
-		n->setValue(std::stod(val));
+		n->setValue(val);
 		return n;
 	}
 	return NULL;
@@ -188,7 +188,7 @@ Node *Lexer::tk_value_float(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("float") == 0) {
 		Node *n = new Node(TK_VALUE_FLOAT, numLine);
-		n->setValue(std::stod(val));
+		n->setValue(val);
 		return n;
 	}
 	return NULL;
@@ -203,7 +203,7 @@ Node *Lexer::tk_value_double(std::string str, unsigned int numLine) {
 	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
 	if (type.compare("double") == 0) {
 		Node *n = new Node(TK_VALUE_DOUBLE, numLine);
-		n->setValue(std::stod(val));
+		n->setValue(val);
 		return n;
 	}
 	return NULL;
@@ -221,8 +221,8 @@ void Lexer::parseLine(std::string line, unsigned int numLine) {
 				this->_nodeList.push_back(nComment);
 			}
 			if (tokenComment == false) {
-				for (std::vector<Node *(*)(std::string, unsigned int)>::iterator it = this->_tk.begin(); it != this->_tk.end(); ++it) {
-					Node *n = (*it)(part, numLine);
+				for (std::vector<Node *(Lexer::*)(std::string, unsigned int)>::iterator it = this->_tk.begin(); it != this->_tk.end(); ++it) {
+					Node *n = (this->**it)(part, numLine);
 					if (n != NULL)
 						this->_nodeList.push_back(n);
 				}

@@ -32,13 +32,8 @@ ParsedNode<T> &ParsedNode<T>::operator=(const ParsedNode &rhs) {
 }
 
 template <class T>
-void ParsedNode<T>::setValue(T val) {
+void ParsedNode<T>::setValue(IOperand * val) {
 	this->_value = val;
-}
-
-template <class T>
-void ParsedNode<T>::setType(eOperandType t) {
-	this->_type = t;
 }
 
 template <class T>
@@ -52,13 +47,8 @@ bool ParsedNode<T>::getHaveValue(void) const {
 }
 
 template <class T>
-T ParsedNode<T>::getValue(void) const {
+IOperand * ParsedNode<T>::getValue(void) const {
 	return this->_value;
-}
-
-template <class T>
-eOperandType ParsedNode<T>::getType(void) const {
-	return this->_type;
 }
 
 template <class T>

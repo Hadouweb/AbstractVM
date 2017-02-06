@@ -14,19 +14,16 @@ public:
 
     ParsedNode & operator=(ParsedNode const & rhs);
 
-    void setValue(T val);
-    void setType(eOperandType t);
+    void setValue(IOperand * val);
 
     e_tk getTkInstr(void) const;
 	bool getHaveValue(void) const;
-    T getValue(void) const;
-	eOperandType getType(void) const;
+    IOperand * getValue(void) const;
 
 private:
 	const e_tk _tkInstr;
 	const bool haveValue;
-	T _value;
-	eOperandType _type;
+	IOperand * _value;
 	ParsedNode(void);
 };
 

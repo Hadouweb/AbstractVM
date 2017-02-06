@@ -9,10 +9,10 @@ int		main(int ac, char **av) {
 		std::list<Node*> nodeList = l.getNodeList();
 
 		for (std::list<Node*>::iterator it = nodeList.begin(); it != nodeList.end(); ++it) {
-			;//std::cout << *(*it);
+			std::cout << *(*it);
 		}
 
-		Parser p(nodeList);
+		//Parser p(nodeList);
 
 	} else {
 		Lexer l;
