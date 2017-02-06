@@ -27,7 +27,7 @@ enum e_tk {
 
 class Node {
 public:
-	Node(e_tk tk, unsigned int numLine);
+	Node(e_tk tk, unsigned int numLine, unsigned int numCol);
     Node(Node const & src);
 
     ~Node(void);

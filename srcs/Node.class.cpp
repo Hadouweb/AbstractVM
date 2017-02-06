@@ -4,7 +4,8 @@ Node::Node(void) {
 	// TODO
 }
 
-Node::Node(e_tk tk, unsigned int numLine) : _token(tk), _numLine(numLine) {
+Node::Node(e_tk tk, unsigned int numLine, unsigned int numCol)
+	: _token(tk), _numLine(numLine), _numCol(numCol) {
 
 }
 
