@@ -194,6 +194,10 @@ void Lexer::tk_value_double(std::string str, unsigned int numLine, unsigned int 
 	}
 }
 
+/*
+ * USE REGEX
+ */
+
 void Lexer::parseLine(std::string line, unsigned int numLine) {
 	std::istringstream is(line);
 	std::string part;
@@ -202,9 +206,12 @@ void Lexer::parseLine(std::string line, unsigned int numLine) {
 		if (!part.empty()) {
 			bool tokenComment = tk_comment(is.str(), part, numLine, numCol);
 			if (tokenComment == false) {
-				for (std::vector<void (Lexer::*)(std::string, unsigned int, unsigned int)>::iterator it = this->_tk.begin(); it != this->_tk.end(); ++it) {
-					(this->**it)(part, numLine, numCol);
-				}
+				std::map<std::string, void (Lexer::*)(std::string, unsigned int, unsigned int)>::iterator it;
+				it = this->_tk.find(part);
+				if (it != this->_tk.end())
+					(this->*it->second)(part, numLine, numCol);
+				else
+					this->_nodeList.push_back(new Node(TK_UNKNOWN, numLine, numCol));
 			}
 		}
 		numCol += part.length() + 1;

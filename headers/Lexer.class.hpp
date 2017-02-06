@@ -6,6 +6,7 @@
 #include <fstream>
 #include <list>
 #include <sstream>
+#include <map>
 #include "Node.class.hpp"
 
 class Node;
@@ -45,23 +46,23 @@ private:
 	bool tk_comment(std::string str, std::string part, unsigned int numLine, unsigned int numCol);
 
 	std::list<Node*> _nodeList;
-	std::vector<void (Lexer::*)(std::string, unsigned int, unsigned int)> _tk = {
-		&Lexer::tk_instr_push,
-		&Lexer::tk_instr_pop,
-		&Lexer::tk_instr_dump,
-		&Lexer::tk_instr_assert,
-		&Lexer::tk_instr_add,
-		&Lexer::tk_instr_sub,
-		&Lexer::tk_instr_mul,
-		&Lexer::tk_instr_div,
-		&Lexer::tk_instr_mod,
-		&Lexer::tk_instr_print,
-		&Lexer::tk_instr_exit,
-		&Lexer::tk_value_int_8,
-		&Lexer::tk_value_int_16,
-		&Lexer::tk_value_int_32,
-		&Lexer::tk_value_float,
-		&Lexer::tk_value_double,
+	std::map<std::string, void (Lexer::*)(std::string, unsigned int, unsigned int)> _tk = {
+		{"push", 	&Lexer::tk_instr_push},
+		{"pop", 	&Lexer::tk_instr_pop},
+		{"dump", 	&Lexer::tk_instr_dump},
+		{"assert", 	&Lexer::tk_instr_assert},
+		{"add", 	&Lexer::tk_instr_add},
+		{"sub", 	&Lexer::tk_instr_sub},
+		{"mul", 	&Lexer::tk_instr_mul},
+		{"div", 	&Lexer::tk_instr_div},
+		{"mod", 	&Lexer::tk_instr_mod},
+		{"print", 	&Lexer::tk_instr_print},
+		{"exit", 	&Lexer::tk_instr_exit},
+		{"int8", 	&Lexer::tk_value_int_8},
+		{"int16", 	&Lexer::tk_value_int_16},
+		{"int32", 	&Lexer::tk_value_int_32},
+		{"float", 	&Lexer::tk_value_float},
+		{"double", 	&Lexer::tk_value_double},
 	};
 };
 
