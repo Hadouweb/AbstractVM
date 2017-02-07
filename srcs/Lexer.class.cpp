@@ -1,10 +1,10 @@
 #include "Lexer.class.hpp"
 
-Lexer::Lexer(void) {
+Lexer::Lexer(void) : _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _state(NB_TK) {
 	this->read();
 }
 
-Lexer::Lexer(std::string fileName) {
+Lexer::Lexer(std::string fileName) : _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _state(NB_TK) {
 	this->read(fileName);
 }
 
@@ -45,175 +45,172 @@ std::list<Node*> Lexer::getNodeList(void) {
 	return this->_nodeList;
 }
 
-void Lexer::tk_instr_push(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("push") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_PUSH, numLine, numCol));
+e_sts Lexer::tkPush(const char c, const uint8_t index) {
+	std::string str = "push";
+
+	switch(this->_state[index]) {
+		case 0: return c == str[0] ? this->_state[index] = 1, STS_HUNGRY : STS_REJECT;
+		case 1: return c == str[1] ? this->_state[index] = 2, STS_HUNGRY : STS_REJECT;
+		case 2: return c == str[2] ? this->_state[index] = 3, STS_HUNGRY : STS_REJECT;
+		case 3: return c == str[3] ? this->_state[index] = 4, STS_ACCEPT : STS_REJECT;
+		case 4: return STS_REJECT;
+		default: abort();
 	}
 }
 
-void Lexer::tk_instr_pop(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("pop") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_POP, numLine, numCol));
+e_sts Lexer::tkPop(const char c, const uint8_t index) {
+	std::string str = "pop";
+
+	switch(this->_state[index]) {
+		case 0: return c == str[0] ? this->_state[index] = 1, STS_HUNGRY : STS_REJECT;
+		case 1: return c == str[1] ? this->_state[index] = 2, STS_HUNGRY : STS_REJECT;
+		case 2: return c == str[2] ? this->_state[index] = 3, STS_ACCEPT : STS_REJECT;
+		case 3: return STS_REJECT;
+		default: abort();
 	}
 }
 
-void Lexer::tk_instr_dump(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("dump") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_DUMP, numLine, numCol));
+e_sts Lexer::tkDump(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkAssert(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkAdd(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkSub(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkMul(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkDiv(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkMod(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkPrint(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkExit(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkInt8(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkInt16(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkInt32(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkFloat(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkDouble(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+e_sts Lexer::tkComment(const char c, const uint8_t index) {
+	if (c && index)
+		;
+	return STS_REJECT;
+}
+
+void Lexer::updateStatus(void) {
+	for (int i = 0; i < NB_TK; i++) {
+		this->_status[i].prev = this->_status[i].curr;
 	}
 }
 
-void Lexer::tk_instr_assert(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("assert") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_ASSERT, numLine, numCol));
+bool Lexer::matchToken(const char c) {
+	uint8_t i = 0;
+	bool find = false;
+	for (tkVectorType::iterator it = this->_tk.begin(); it != this->_tk.end(); ++it) {
+		if (this->_status[i].prev != STS_REJECT)
+			this->_status[i].curr = (this->**it)(c, i);
+		if (this->_status[i].curr != STS_REJECT)
+			find = true;
+		i++;
 	}
+	for (int i = 0; i < NB_TK; i++) {
+		//std::cout << this->_status[i].curr << std::endl;
+	}
+	//std::cout << "_______" << std::endl;
+	return find;
 }
 
-void Lexer::tk_instr_add(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("add") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_ADD, numLine, numCol));
-	}
-}
+e_tk Lexer::getTokenFound(void) {
 
-void Lexer::tk_instr_sub(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("sub") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_SUB, numLine, numCol));
+	e_tk tk = NB_TK;
+	for (int i = 0; i < NB_TK; i++) {
+		if (this->_status[i].prev == STS_ACCEPT) {
+			tk = static_cast<e_tk>(i);
+		}
+		this->_status[i].prev = STS_HUNGRY;
+		this->_status[i].curr = STS_REJECT;
 	}
+	return tk;
 }
-
-void Lexer::tk_instr_mul(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("mul") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_MUL, numLine, numCol));
-	}
-}
-
-void Lexer::tk_instr_div(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("div") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_DIV, numLine, numCol));
-	}
-}
-
-void Lexer::tk_instr_mod(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("mod") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_MOD, numLine, numCol));
-	}
-}
-
-void Lexer::tk_instr_print(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("print") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_PRINT, numLine, numCol));
-	}
-}
-
-void Lexer::tk_instr_exit(std::string str, unsigned int numLine, unsigned int numCol) {
-	if (str.compare("exit") == 0) {
-		this->_nodeList.push_back(new Node(TK_INSTR_EXIT, numLine, numCol));
-	}
-}
-
-bool Lexer::tk_comment(std::string str, std::string part, unsigned int numLine, unsigned int numCol) {
-	std::size_t index = part.find(';');
-	if (index != std::string::npos) {
-		std::size_t index = str.find(';');
-		std::string comment = str.substr(index, str.length());
-		Node *n = new Node(TK_COMMENT, numLine, numCol);
-		n->setComment(comment);
-		this->_nodeList.push_back(n);
-		return true;
-	}
-	return false;
-}
-
-void Lexer::tk_value_int_8(std::string str, unsigned int numLine, unsigned int numCol) {
-	unsigned long index = str.find("(");
-	std::string type = str.substr(0, index);
-	str.erase(0, index);
-	std::string val = str.substr(0, str.length());
-	val.erase(std::remove(val.begin(), val.end(), '('), str.end());
-	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
-	if (type.compare("int8") == 0) {
-		Node *n = new Node(TK_VALUE_INT_8, numLine, numCol);
-		n->setValue(val);
-		this->_nodeList.push_back(n);
-	}
-}
-
-void Lexer::tk_value_int_16(std::string str, unsigned int numLine, unsigned int numCol) {
-	unsigned long index = str.find("(");
-	std::string type = str.substr(0, index);
-	str.erase(0, index);
-	std::string val = str.substr(0, str.length());
-	val.erase(std::remove(val.begin(), val.end(), '('), str.end());
-	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
-	if (type.compare("int16") == 0) {
-		Node *n = new Node(TK_VALUE_INT_16, numLine, numCol);
-		n->setValue(val);
-		this->_nodeList.push_back(n);
-	}
-}
-
-void Lexer::tk_value_int_32(std::string str, unsigned int numLine, unsigned int numCol) {
-	unsigned long index = str.find("(");
-	std::string type = str.substr(0, index);
-	str.erase(0, index);
-	std::string val = str.substr(0, str.length());
-	val.erase(std::remove(val.begin(), val.end(), '('), str.end());
-	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
-	if (type.compare("int32") == 0) {
-		Node *n = new Node(TK_VALUE_INT_32, numLine, numCol);
-		n->setValue(val);
-		this->_nodeList.push_back(n);
-	}
-}
-
-void Lexer::tk_value_float(std::string str, unsigned int numLine, unsigned int numCol) {
-	unsigned long index = str.find("(");
-	std::string type = str.substr(0, index);
-	str.erase(0, index);
-	std::string val = str.substr(0, str.length());
-	val.erase(std::remove(val.begin(), val.end(), '('), str.end());
-	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
-	if (type.compare("float") == 0) {
-		Node *n = new Node(TK_VALUE_FLOAT, numLine, numCol);
-		n->setValue(val);
-		this->_nodeList.push_back(n);
-	}
-}
-
-void Lexer::tk_value_double(std::string str, unsigned int numLine, unsigned int numCol) {
-	unsigned long index = str.find("(");
-	std::string type = str.substr(0, index);
-	str.erase(0, index);
-	std::string val = str.substr(0, str.length());
-	val.erase(std::remove(val.begin(), val.end(), '('), str.end());
-	val.erase(std::remove(val.begin(), val.end(), ')'), str.end());
-	if (type.compare("double") == 0) {
-		Node *n = new Node(TK_VALUE_DOUBLE, numLine, numCol);
-		n->setValue(val);
-		this->_nodeList.push_back(n);
-	}
-}
-
-/*
- * USE REGEX
- */
 
 void Lexer::parseLine(std::string line, unsigned int numLine) {
-	std::istringstream is(line);
-	std::string part;
-	unsigned int numCol = 0;
-	while (getline(is, part, ' ')) {
-		if (!part.empty()) {
-			bool tokenComment = tk_comment(is.str(), part, numLine, numCol);
-			if (tokenComment == false) {
-				std::map<std::string, void (Lexer::*)(std::string, unsigned int, unsigned int)>::iterator it;
-				it = this->_tk.find(part);
-				if (it != this->_tk.end())
-					(this->*it->second)(part, numLine, numCol);
-				else
-					this->_nodeList.push_back(new Node(TK_UNKNOWN, numLine, numCol));
-			}
+	if (line.length() && numLine)
+		;
+	unsigned int i = 0;
+	unsigned int j = 0;
+	std::cout << line << " " << numLine << std::endl;
+	while(line[i]) {
+		if (this->matchToken(line[i]) == true)
+			this->updateStatus();
+		else {
+			e_tk token = getTokenFound();
+			if (token != NB_TK)
+				this->_nodeList.push_back(new Node(token, numLine, j));
+			j = i;
 		}
-		numCol += part.length() + 1;
+		i++;
 	}
 }

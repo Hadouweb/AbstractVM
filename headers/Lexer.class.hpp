@@ -6,10 +6,21 @@
 #include <fstream>
 #include <list>
 #include <sstream>
-#include <map>
 #include "Node.class.hpp"
 
 class Node;
+
+enum	e_sts
+{
+	STS_ACCEPT,
+	STS_REJECT,
+	STS_HUNGRY,
+};
+
+struct Status {
+	e_sts prev;
+	e_sts curr;
+};
 
 class Lexer {
 public:
@@ -26,44 +37,53 @@ public:
 
 private:
 	void parseLine(std::string line, unsigned int numLine);
+	void updateStatus(void);
+	bool matchToken(const char c);
+	e_tk getTokenFound(void);
 
-	void tk_instr_push(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_pop(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_dump(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_assert(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_add(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_sub(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_mul(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_div(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_mod(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_print(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_instr_exit(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_value_int_8(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_value_int_16(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_value_int_32(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_value_float(std::string str, unsigned int numLine, unsigned int numCol);
-	void tk_value_double(std::string str, unsigned int numLine, unsigned int numCol);
-	bool tk_comment(std::string str, std::string part, unsigned int numLine, unsigned int numCol);
+	e_sts tkPush(const char c, const uint8_t index);
+	e_sts tkPop(const char c, const uint8_t index);
+	e_sts tkDump(const char c, const uint8_t index);
+	e_sts tkAssert(const char c, const uint8_t index);
+	e_sts tkAdd(const char c, const uint8_t index);
+	e_sts tkSub(const char c, const uint8_t index);
+	e_sts tkMul(const char c, const uint8_t index);
+	e_sts tkDiv(const char c, const uint8_t index);
+	e_sts tkMod(const char c, const uint8_t index);
+	e_sts tkPrint(const char c, const uint8_t index);
+	e_sts tkExit(const char c, const uint8_t index);
+	e_sts tkInt8(const char c, const uint8_t index);
+	e_sts tkInt16(const char c, const uint8_t index);
+	e_sts tkInt32(const char c, const uint8_t index);
+	e_sts tkFloat(const char c, const uint8_t index);
+	e_sts tkDouble(const char c, const uint8_t index);
+	e_sts tkComment(const char c, const uint8_t index);
 
 	std::list<Node*> _nodeList;
-	std::map<std::string, void (Lexer::*)(std::string, unsigned int, unsigned int)> _tk = {
-		{"push", 	&Lexer::tk_instr_push},
-		{"pop", 	&Lexer::tk_instr_pop},
-		{"dump", 	&Lexer::tk_instr_dump},
-		{"assert", 	&Lexer::tk_instr_assert},
-		{"add", 	&Lexer::tk_instr_add},
-		{"sub", 	&Lexer::tk_instr_sub},
-		{"mul", 	&Lexer::tk_instr_mul},
-		{"div", 	&Lexer::tk_instr_div},
-		{"mod", 	&Lexer::tk_instr_mod},
-		{"print", 	&Lexer::tk_instr_print},
-		{"exit", 	&Lexer::tk_instr_exit},
-		{"int8", 	&Lexer::tk_value_int_8},
-		{"int16", 	&Lexer::tk_value_int_16},
-		{"int32", 	&Lexer::tk_value_int_32},
-		{"float", 	&Lexer::tk_value_float},
-		{"double", 	&Lexer::tk_value_double},
+
+	typedef std::vector<e_sts (Lexer::*)(const char c, const uint8_t index)> tkVectorType;
+	tkVectorType _tk = {
+		&Lexer::tkPush,
+		&Lexer::tkPop,
+		&Lexer::tkDump,
+		&Lexer::tkAssert,
+		&Lexer::tkAdd,
+		&Lexer::tkSub,
+		&Lexer::tkMul,
+		&Lexer::tkDiv,
+		&Lexer::tkMod,
+		&Lexer::tkPrint,
+		&Lexer::tkExit,
+		&Lexer::tkInt8,
+		&Lexer::tkInt16,
+		&Lexer::tkInt32,
+		&Lexer::tkFloat,
+		&Lexer::tkDouble,
+		&Lexer::tkComment,
 	};
+
+	std::vector<Status> _status;
+	std::vector<uint8_t> _state;
 };
 
 #endif

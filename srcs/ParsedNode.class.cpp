@@ -8,7 +8,7 @@ ParsedNode<T>::ParsedNode(e_tk pTkInstr, bool pHaveValue)
 
 template <class T>
 ParsedNode<T>::ParsedNode(void)
-	: _tkInstr(TK_UNKNOWN), haveValue(false) {
+	: _tkInstr(NB_TK), haveValue(false) {
 	// TODO
 }
 

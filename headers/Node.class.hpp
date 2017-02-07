@@ -1,7 +1,7 @@
 #ifndef NODE_CLASS_HPP
 # define NODE_CLASS_HPP
 
-#include "Lexer.class.hpp"
+
 #include <iomanip>
 
 enum e_tk {
@@ -16,14 +16,15 @@ enum e_tk {
 	TK_INSTR_MOD,
 	TK_INSTR_PRINT,
 	TK_INSTR_EXIT,
-	TK_COMMENT,
 	TK_VALUE_INT_8,
 	TK_VALUE_INT_16,
 	TK_VALUE_INT_32,
 	TK_VALUE_FLOAT,
 	TK_VALUE_DOUBLE,
-	TK_UNKNOWN,
+	TK_COMMENT,
+	NB_TK,
 };
+
 
 class Node {
 public:

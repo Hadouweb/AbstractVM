@@ -50,8 +50,6 @@ std::string Node::convertEnumTk(e_tk e) {
 			return "TK_INSTR_EXIT";
 		case TK_COMMENT:
 			return "TK_COMMENT";
-		case TK_UNKNOWN:
-			return "TK_UNKNOWN";
 		case TK_VALUE_INT_8:
 			return "TK_VALUE_INT_8";
 		case TK_VALUE_INT_16:
@@ -62,6 +60,8 @@ std::string Node::convertEnumTk(e_tk e) {
 			return "TK_VALUE_FLOAT";
 		case TK_VALUE_DOUBLE:
 			return "TK_VALUE_DOUBLE";
+		case NB_TK:
+			return "NB_TK";
 	}
 	return "NULL";
 }
