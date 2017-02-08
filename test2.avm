@@ -1,1 +1,3 @@
-push double(1.231)
+push float(42.4)
+pop ; klsadjksahdjksahdkf add
+print l

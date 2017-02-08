@@ -4,8 +4,8 @@ Node::Node(void) {
 	// TODO
 }
 
-Node::Node(e_tk tk, unsigned int numLine, unsigned int numCol)
-	: _token(tk), _numLine(numLine), _numCol(numCol) {
+Node::Node(e_tk tk, std::string val, unsigned int numLine, unsigned int numCol)
+	: _token(tk), _value(val), _numLine(numLine), _numCol(numCol) {
 
 }
 
@@ -90,15 +90,7 @@ void Node::setValue(std::string v) {
 	this->_value = v;
 }
 
-std::string Node::getComment() const {
-	return this->_comment;
-}
-
-void Node::setComment(std::string comment) {
-	this->_comment = comment;
-}
-
 std::ostream &operator<<(std::ostream &os, Node &n) {
-	os << Node::convertEnumTk(n.getToken()) << " col : " << n.getNumCol() << " line : " << n.getNumLine() << std::endl;
+	os << Node::convertEnumTk(n.getToken()) << " |" << n.getValue() << "| col : " << n.getNumCol() << " line : " << n.getNumLine() << std::endl;
 	return os;
 }

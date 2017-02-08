@@ -30,7 +30,7 @@ enum e_tk {
 
 class Node {
 public:
-	Node(e_tk tk, unsigned int numLine, unsigned int numCol);
+	Node(e_tk tk, std::string val, unsigned int numLine, unsigned int numCol);
     Node(Node const & src);
 
     ~Node(void);
@@ -43,16 +43,13 @@ public:
 	unsigned int getNumLine() const;
 	unsigned int getNumCol() const;
 	std::string getValue() const;
-	std::string getComment() const;
 
 	void setValue(std::string _valueDouble);
-	void setComment(std::string comment);
 
 private:
 	Node(void);
 	e_tk _token;
 	std::string _value;
-	std::string _comment;
 	unsigned int _numLine;
 	unsigned int _numCol;
 };

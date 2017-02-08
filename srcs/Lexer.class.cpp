@@ -32,6 +32,11 @@ std::list<Node*> Lexer::getNodeList(void) {
 	return this->_nodeList;
 }
 
+
+std::list<Node *> Lexer::getErrorList(void) {
+	return this->_errorList;
+}
+
 #define TOKEN_DEFINE_1(funcName, str) \
 e_sts Lexer::funcName(const char c, const uint8_t index) { \
 	switch(this->_state[index]) { \
@@ -340,37 +345,54 @@ e_tk Lexer::getTokenFound(void) {
 
 enum e_tk Lexer::pushToken(unsigned int line, unsigned int col) {
 	e_tk token = getTokenFound();
-	//int index = static_cast<int>(token);
+	int index = static_cast<int>(token);
 	//std::cout << "|" << this->_chunk[index] << "|" << std::endl;
 	//if (token != NB_TK)
-		this->_nodeList.push_back(new Node(token, line, col));
+		this->_nodeList.push_back(new Node(token, this->_chunk[index], line, col));
 	return token;
+}
+
+void Lexer::pushError(unsigned int line, unsigned int col) {
+	e_tk token = getTokenFound();
+	int index = static_cast<int>(token);
+	//std::cout << "|" << this->_chunk[index] << "|" << std::endl;
+	this->_errorList.push_back(new Node(token, this->_chunk[index], line, col));
 }
 
 void Lexer::forEachChar(std::istream & is) {
 	unsigned int i = 0;
 	unsigned int col = 0;
 	unsigned int line = 0;
-	char c;
+	char c = is.get();
 
-	while((c = is.get()) >= 0) {
-		if (matchToken(c))
+	while(c >= 0) {
+		//std::cout << "|" << c << "|" << std::endl;
+		if (matchToken(c)) {
 			this->updateStatus();
-		 else {
+			c = is.get();
+			i++;
+		} else {
 			e_tk token = this->pushToken(line, col);
+			if (token == NB_TK) {
+				this->pushError(line, col);
+				if (matchToken(c))
+					this->updateStatus();
+				else {
+					c = is.get();
+					i++;
+				}
+			}
 			if (token == TK_COMMENT) {
 				while((c = is.get()) >= 0 && c != '\n') {
 					i++;
 				}
+			}
+			if (token == TK_END_LINE) {
 				line++;
+				i = 0;
 			}
 			col = i;
-			if (matchToken(c))
-				this->updateStatus();
 		}
-		i++;
-		if (c == '\n')
-			i = 0;
 	}
 	this->pushToken(line, col);
 }

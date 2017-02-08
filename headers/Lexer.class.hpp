@@ -33,6 +33,7 @@ public:
 
     Lexer & operator=(Lexer const & rhs);
 	std::list<Node*> getNodeList(void);
+	std::list<Node*> getErrorList(void);
 
 	static std::string convertStsEnum(enum e_sts sts);
 
@@ -40,6 +41,7 @@ private:
 	void forEachChar(std::istream & is);
 	void updateStatus(void);
 	enum e_tk pushToken(unsigned int line, unsigned int col);
+	void pushError(unsigned int line, unsigned int col);
 	bool matchToken(const char c);
 	e_tk getTokenFound(void);
 
@@ -64,6 +66,7 @@ private:
 	e_sts tkWhiteSpace(const char c, const uint8_t index);
 
 	std::list<Node*> _nodeList;
+	std::list<Node*> _errorList;
 
 	typedef std::vector<e_sts (Lexer::*)(const char c, const uint8_t index)> tkVectorType;
 	tkVectorType _tk = {
