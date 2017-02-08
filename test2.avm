@@ -1,2 +1,1 @@
-pop
-push int8(42)
+push double(1.231)

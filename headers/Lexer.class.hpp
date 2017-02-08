@@ -6,6 +6,7 @@
 #include <fstream>
 #include <list>
 #include <sstream>
+#include <algorithm>
 #include "Node.class.hpp"
 
 class Node;
@@ -31,13 +32,14 @@ public:
     ~Lexer(void);
 
     Lexer & operator=(Lexer const & rhs);
-	void read(void);
-	void read(std::string fileName);
 	std::list<Node*> getNodeList(void);
 
+	static std::string convertStsEnum(enum e_sts sts);
+
 private:
-	void parseLine(std::string line, unsigned int numLine);
+	void forEachChar(std::istream & is);
 	void updateStatus(void);
+	enum e_tk pushToken(unsigned int line, unsigned int col);
 	bool matchToken(const char c);
 	e_tk getTokenFound(void);
 
@@ -58,6 +60,8 @@ private:
 	e_sts tkFloat(const char c, const uint8_t index);
 	e_sts tkDouble(const char c, const uint8_t index);
 	e_sts tkComment(const char c, const uint8_t index);
+	e_sts tkEndLine(const char c, const uint8_t index);
+	e_sts tkWhiteSpace(const char c, const uint8_t index);
 
 	std::list<Node*> _nodeList;
 
@@ -80,10 +84,18 @@ private:
 		&Lexer::tkFloat,
 		&Lexer::tkDouble,
 		&Lexer::tkComment,
+		&Lexer::tkEndLine,
+		&Lexer::tkWhiteSpace,
 	};
+
+	void printStatus(void);
 
 	std::vector<Status> _status;
 	std::vector<uint8_t> _state;
+	std::vector<std::string> _chunk;
 };
+
+std::ostream & operator<<(std::ostream & os, Status & s);
+std::ostream & operator<<(std::ostream & os, Status & s);
 
 #endif
