@@ -32,8 +32,9 @@ public:
     ~Lexer(void);
 
     Lexer & operator=(Lexer const & rhs);
-	std::list<Node*> getNodeList(void);
-	std::list<Node*> getErrorList(void);
+	std::list<Node*> getNodeList(void) const;
+	std::list<Node*> getErrorList(void) const;
+	void printError(void);
 
 	static std::string convertStsEnum(enum e_sts sts);
 

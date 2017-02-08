@@ -9,18 +9,16 @@ int		main(int ac, char **av) {
 		std::list<Node*> nodeList = l.getNodeList();
 		std::list<Node*> errorList = l.getErrorList();
 
+		if (errorList.size() > 0) {
+			l.printError();
+			exit(1);
+		}
+
 		for (std::list<Node*>::iterator it = nodeList.begin(); it != nodeList.end(); ++it) {
-			std::cout << *(*it);
+			//std::cout << *(*it);
 		}
 
-		std::cout << std::endl;
-
-		for (std::list<Node*>::iterator it = errorList.begin(); it != errorList.end(); ++it) {
-			std::cout << *(*it);
-		}
-
-		//Parser p(nodeList);
-
+		Parser p(nodeList);
 	} else {
 		Lexer l;
 	}

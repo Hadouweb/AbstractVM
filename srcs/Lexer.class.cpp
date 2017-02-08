@@ -19,6 +19,10 @@ Lexer::Lexer(const Lexer &src) {
 
 Lexer::~Lexer(void) {
 	// TODO
+	for (std::list<Node*>::iterator it = this->_nodeList.begin(); it != this->_nodeList.end(); ++it) {
+		delete *it;
+	}
+	this->_nodeList.clear();
 }
 
 Lexer &Lexer::operator=(const Lexer &rhs) {
@@ -28,12 +32,12 @@ Lexer &Lexer::operator=(const Lexer &rhs) {
 	return *this;
 }
 
-std::list<Node*> Lexer::getNodeList(void) {
+std::list<Node*> Lexer::getNodeList(void) const {
 	return this->_nodeList;
 }
 
 
-std::list<Node *> Lexer::getErrorList(void) {
+std::list<Node *> Lexer::getErrorList(void) const {
 	return this->_errorList;
 }
 
@@ -347,16 +351,15 @@ enum e_tk Lexer::pushToken(unsigned int line, unsigned int col) {
 	e_tk token = getTokenFound();
 	int index = static_cast<int>(token);
 	//std::cout << "|" << this->_chunk[index] << "|" << std::endl;
-	//if (token != NB_TK)
+	if (token != NB_TK)
 		this->_nodeList.push_back(new Node(token, this->_chunk[index], line, col));
 	return token;
 }
 
 void Lexer::pushError(unsigned int line, unsigned int col) {
 	e_tk token = getTokenFound();
-	int index = static_cast<int>(token);
 	//std::cout << "|" << this->_chunk[index] << "|" << std::endl;
-	this->_errorList.push_back(new Node(token, this->_chunk[index], line, col));
+	this->_errorList.push_back(new Node(token, "", line, col));
 }
 
 void Lexer::forEachChar(std::istream & is) {
@@ -396,6 +399,15 @@ void Lexer::forEachChar(std::istream & is) {
 	}
 	this->pushToken(line, col);
 }
+
+void Lexer::printError(void) {
+	for (std::list<Node *>::iterator it = this->_errorList.begin(); it != this->_errorList.end(); ++it) {
+		std::cerr << "Unknown token col: " << (*it)->getNumCol() << " line: " << (*it)->getNumLine() << std::endl;
+		delete *it;
+	}
+	this->_errorList.clear();
+}
+
 
 std::string Lexer::convertStsEnum(enum e_sts sts) {
 	switch(sts) {

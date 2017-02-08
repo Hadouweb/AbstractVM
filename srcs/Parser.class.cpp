@@ -58,20 +58,31 @@ void Parser::parse_value_double(Node * n) {
 }
 
 void Parser::parse_instr_push(std::list<Node*>::iterator & it, std::list<Node *> nodeList) {
-	std::map<e_tk, void (Parser::*)(Node*)>::iterator it2;
-	++it;
-	if (it != nodeList.end()) {
-		it2 = this->_typeCheckerMap.find((*it)->getToken());
-		if (it2 != this->_typeCheckerMap.end())
-			(this->*it2->second)(*it);
+	std::map<e_tk, void (Parser::*)(Node*)>::iterator itType;
+	std::list<Node*>::iterator nextIt = std::next(it, 1);
+
+	std::cout << Node::convertEnumTk((*nextIt)->getToken()) << std::endl;
+	if (nextIt != nodeList.end()) {
+		if ((*nextIt)->getToken() == TK_WHITE_SPACE)
+			nextIt = std::next(it, 2);
 		else
-			;// Error;
+			std::cout << "ERROR WHITESPACE" << std::endl;
+	}
+
+
+	if (nextIt != nodeList.end()) {
+		itType = this->_typeCheckerMap.find((*nextIt)->getToken());
+		if (itType != this->_typeCheckerMap.end())
+			(this->*itType->second)(*it);
+		else
+			std::cerr << "ERROR" << std::endl;
 	}
 	else
 		;// Error;
 
 	ParsedNode<> pN((*it)->getToken(), true);
-
+	if (nodeList.size())
+		;
 	std::cout << (*it)->convertEnumTk((*it)->getToken()) << std::endl;
 	std::cout << "parse_instr_push" << std::endl;
 }
