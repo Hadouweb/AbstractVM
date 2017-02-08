@@ -402,7 +402,7 @@ void Lexer::forEachChar(std::istream & is) {
 
 void Lexer::printError(void) {
 	for (std::list<Node *>::iterator it = this->_errorList.begin(); it != this->_errorList.end(); ++it) {
-		std::cerr << "Unknown token col: " << (*it)->getNumCol() << " line: " << (*it)->getNumLine() << std::endl;
+		std::cerr << "Synthax Error, unknown token col: " << (*it)->getNumCol() << " line: " << (*it)->getNumLine() << std::endl;
 		delete *it;
 	}
 	this->_errorList.clear();

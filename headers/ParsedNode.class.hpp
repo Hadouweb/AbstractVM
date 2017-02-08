@@ -4,30 +4,26 @@
 #include "Node.class.hpp"
 #include "IOperand.class.hpp"
 
-template <class T = int>
 class ParsedNode {
 public:
-	ParsedNode(e_tk pTkInstr, bool pHaveValue);
+	ParsedNode(e_tk pTkInstr, e_tk pTkValue, std::string val);
     ParsedNode(ParsedNode const & src);
 
     ~ParsedNode(void);
 
     ParsedNode & operator=(ParsedNode const & rhs);
 
-    void setValue(IOperand * val);
-
     e_tk getTkInstr(void) const;
-	bool getHaveValue(void) const;
-    IOperand * getValue(void) const;
+    e_tk getTkValue(void) const;
+    std::string getValue(void) const;
 
 private:
 	const e_tk _tkInstr;
-	const bool haveValue;
-	IOperand * _value;
+	const e_tk _tkValue;
+	std::string _value;
 	ParsedNode(void);
 };
 
-template<class T>
-std::ostream & operator<<(std::ostream & os, ParsedNode<T> & pN);
+std::ostream & operator<<(std::ostream & os, ParsedNode & pN);
 
 #endif

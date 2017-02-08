@@ -1,11 +1,19 @@
 #ifndef PARSER_CLASS_HPP
 # define PARSER_CLASS_HPP
 
+#include <vector>
 #include <iostream>
 #include <list>
-#include "Node.class.hpp"
 #include <map>
+#include "Node.class.hpp"
 #include "ParsedNode.class.hpp"
+
+struct Error {
+	Error(unsigned int col, unsigned int line, std::string type);
+	unsigned int col;
+	unsigned int line;
+	std::string type;
+};
 
 class Parser {
 public:
@@ -16,9 +24,15 @@ public:
 
     Parser & operator=(Parser const & rhs);
     void makeParsing(std::list<Node *> nodeList);
+	std::list<Error*> getErrorList(void) const;
+	std::list<ParsedNode*> getParsedNodeList(void) const;
+	void printError(void);
 
 private:
 	std::list<std::string> _errorStack;
+	bool isValue(Node *n);
+	bool endLine(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	void pushError(unsigned int col, unsigned int line, std::string type);
 
 	void parse_instr_push(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
 	void parse_instr_pop(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
@@ -31,8 +45,11 @@ private:
 	void parse_instr_mod(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
 	void parse_instr_print(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
 	void parse_instr_exit(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
+	void parse_comment(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
 
-    std::map<e_tk, void (Parser::*)(std::list<Node*>::iterator & it, std::list<Node *> nodeList)> _instrCheckerMap = {
+	typedef std::map<e_tk, void (Parser::*)(std::list<Node*>::iterator & it, std::list<Node *>) > instrMapType;
+
+	instrMapType _instrCheckerMap = {
     	{TK_INSTR_PUSH, 	&Parser::parse_instr_push},
 		{TK_INSTR_POP, 		&Parser::parse_instr_pop},
 		{TK_INSTR_DUMP, 	&Parser::parse_instr_dump},
@@ -44,21 +61,12 @@ private:
 		{TK_INSTR_MOD, 		&Parser::parse_instr_mod},
 		{TK_INSTR_PRINT, 	&Parser::parse_instr_print},
 		{TK_INSTR_EXIT, 	&Parser::parse_instr_exit},
+		{TK_COMMENT, 		&Parser::parse_comment},
     };
 
-	void parse_value_int_8(Node * n);
-	void parse_value_int_16(Node * n);
-	void parse_value_int_32(Node * n);
-	void parse_value_float(Node * n);
-	void parse_value_double(Node * n);
+	std::list<Error*> _errorList;
+	std::list<ParsedNode*> _parsedNodeList;
 
-	std::map<e_tk, void (Parser::*)(Node *)> _typeCheckerMap = {
-			{TK_VALUE_INT_8, 	&Parser::parse_value_int_8},
-			{TK_VALUE_INT_16, 	&Parser::parse_value_int_16},
-			{TK_VALUE_INT_32, 	&Parser::parse_value_int_32},
-			{TK_VALUE_FLOAT, 	&Parser::parse_value_float},
-			{TK_VALUE_DOUBLE, 	&Parser::parse_value_double},
-	};
 };
 
 #endif

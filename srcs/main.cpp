@@ -19,6 +19,19 @@ int		main(int ac, char **av) {
 		}
 
 		Parser p(nodeList);
+
+		std::list<Error*> errorListParser = p.getErrorList();
+		std::list<ParsedNode*> parsedListParser = p.getParsedNodeList();
+
+		if (errorListParser.size() > 0) {
+			p.printError();
+			exit(1);
+		}
+
+		for (std::list<ParsedNode*>::iterator it = parsedListParser.begin(); it != parsedListParser.end(); ++it) {
+			std::cout << *(*it);
+		}
+
 	} else {
 		Lexer l;
 	}
