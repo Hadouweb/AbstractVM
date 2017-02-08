@@ -285,6 +285,33 @@ srcs/Parser.class.cpp.s:
 	$(MAKE) -f CMakeFiles/abstractVM.dir/build.make CMakeFiles/abstractVM.dir/srcs/Parser.class.cpp.s
 .PHONY : srcs/Parser.class.cpp.s
 
+srcs/VirtualMachine.class.o: srcs/VirtualMachine.class.cpp.o
+
+.PHONY : srcs/VirtualMachine.class.o
+
+# target to build an object file
+srcs/VirtualMachine.class.cpp.o:
+	$(MAKE) -f CMakeFiles/abstractVM.dir/build.make CMakeFiles/abstractVM.dir/srcs/VirtualMachine.class.cpp.o
+.PHONY : srcs/VirtualMachine.class.cpp.o
+
+srcs/VirtualMachine.class.i: srcs/VirtualMachine.class.cpp.i
+
+.PHONY : srcs/VirtualMachine.class.i
+
+# target to preprocess a source file
+srcs/VirtualMachine.class.cpp.i:
+	$(MAKE) -f CMakeFiles/abstractVM.dir/build.make CMakeFiles/abstractVM.dir/srcs/VirtualMachine.class.cpp.i
+.PHONY : srcs/VirtualMachine.class.cpp.i
+
+srcs/VirtualMachine.class.s: srcs/VirtualMachine.class.cpp.s
+
+.PHONY : srcs/VirtualMachine.class.s
+
+# target to generate assembly for a file
+srcs/VirtualMachine.class.cpp.s:
+	$(MAKE) -f CMakeFiles/abstractVM.dir/build.make CMakeFiles/abstractVM.dir/srcs/VirtualMachine.class.cpp.s
+.PHONY : srcs/VirtualMachine.class.cpp.s
+
 srcs/main.o: srcs/main.cpp.o
 
 .PHONY : srcs/main.o
@@ -339,6 +366,9 @@ help:
 	@echo "... srcs/Parser.class.o"
 	@echo "... srcs/Parser.class.i"
 	@echo "... srcs/Parser.class.s"
+	@echo "... srcs/VirtualMachine.class.o"
+	@echo "... srcs/VirtualMachine.class.i"
+	@echo "... srcs/VirtualMachine.class.s"
 	@echo "... srcs/main.o"
 	@echo "... srcs/main.i"
 	@echo "... srcs/main.s"

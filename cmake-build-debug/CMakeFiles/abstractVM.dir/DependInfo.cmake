@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/nle-bret/projects/AbstractVM/srcs/Operand.class.cpp" "/Users/nle-bret/projects/AbstractVM/cmake-build-debug/CMakeFiles/abstractVM.dir/srcs/Operand.class.cpp.o"
   "/Users/nle-bret/projects/AbstractVM/srcs/ParsedNode.class.cpp" "/Users/nle-bret/projects/AbstractVM/cmake-build-debug/CMakeFiles/abstractVM.dir/srcs/ParsedNode.class.cpp.o"
   "/Users/nle-bret/projects/AbstractVM/srcs/Parser.class.cpp" "/Users/nle-bret/projects/AbstractVM/cmake-build-debug/CMakeFiles/abstractVM.dir/srcs/Parser.class.cpp.o"
+  "/Users/nle-bret/projects/AbstractVM/srcs/VirtualMachine.class.cpp" "/Users/nle-bret/projects/AbstractVM/cmake-build-debug/CMakeFiles/abstractVM.dir/srcs/VirtualMachine.class.cpp.o"
   "/Users/nle-bret/projects/AbstractVM/srcs/main.cpp" "/Users/nle-bret/projects/AbstractVM/cmake-build-debug/CMakeFiles/abstractVM.dir/srcs/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")

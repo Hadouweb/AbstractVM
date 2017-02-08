@@ -107,6 +107,9 @@
 		<Unit filename="/Users/nle-bret/projects/AbstractVM/headers/Parser.class.hpp">
 			<Option target="abstractVM"/>
 		</Unit>
+		<Unit filename="/Users/nle-bret/projects/AbstractVM/headers/VirtualMachine.class.hpp">
+			<Option target="abstractVM"/>
+		</Unit>
 		<Unit filename="/Users/nle-bret/projects/AbstractVM/srcs/Factory.class.cpp">
 			<Option target="abstractVM"/>
 		</Unit>
@@ -123,6 +126,9 @@
 			<Option target="abstractVM"/>
 		</Unit>
 		<Unit filename="/Users/nle-bret/projects/AbstractVM/srcs/Parser.class.cpp">
+			<Option target="abstractVM"/>
+		</Unit>
+		<Unit filename="/Users/nle-bret/projects/AbstractVM/srcs/VirtualMachine.class.cpp">
 			<Option target="abstractVM"/>
 		</Unit>
 		<Unit filename="/Users/nle-bret/projects/AbstractVM/srcs/main.cpp">

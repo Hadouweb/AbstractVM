@@ -14,6 +14,7 @@ SRC =   $(SRC_PATH)/main.cpp\
         $(SRC_PATH)/Parser.class.cpp\
         $(SRC_PATH)/Operand.class.cpp\
         $(SRC_PATH)/Factory.class.cpp\
+        $(SRC_PATH)/VirtualMachine.class.cpp\
 
 OBJ = $(SRC:%.cpp=%.o)
 

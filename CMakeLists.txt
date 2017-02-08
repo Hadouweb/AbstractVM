@@ -14,6 +14,7 @@ set(SOURCE_FILES
     srcs/ParsedNode.class.cpp
     srcs/Operand.class.cpp
     srcs/Factory.class.cpp
+    srcs/VirtualMachine.class.cpp
     headers/Lexer.class.hpp
     headers/Node.class.hpp
     headers/Parser.class.hpp
@@ -21,6 +22,7 @@ set(SOURCE_FILES
     headers/Operand.class.hpp
     headers/IOperand.class.hpp
     headers/Factory.class.hpp
+    headers/VirtualMachine.class.hpp
     )
 
 add_executable(abstractVM ${SOURCE_FILES})

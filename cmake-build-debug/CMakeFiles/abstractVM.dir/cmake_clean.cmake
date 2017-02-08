@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/abstractVM.dir/srcs/ParsedNode.class.cpp.o"
   "CMakeFiles/abstractVM.dir/srcs/Operand.class.cpp.o"
   "CMakeFiles/abstractVM.dir/srcs/Factory.class.cpp.o"
+  "CMakeFiles/abstractVM.dir/srcs/VirtualMachine.class.cpp.o"
   "abstractVM.pdb"
   "abstractVM"
 )
