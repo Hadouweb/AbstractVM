@@ -28,6 +28,17 @@ public:
 	std::list<ParsedNode*> getParsedNodeList(void) const;
 	void printError(void);
 
+	class SynthaxException : public std::exception {
+		public:
+			SynthaxException(void);
+			~SynthaxException(void) throw();
+			virtual const char* what() const throw();
+		private:
+			SynthaxException(SynthaxException const & src);
+			SynthaxException & operator=(SynthaxException const & rhs);
+	};
+
+
 private:
 	std::list<std::string> _errorStack;
 	bool isValue(Node *n);

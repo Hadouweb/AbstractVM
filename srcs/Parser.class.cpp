@@ -32,8 +32,6 @@ void Parser::makeParsing(std::list<Node *> nodeList) {
 		instrMapType::iterator it2 = this->_instrCheckerMap.find((*it)->getToken());
 		if (it2 != this->_instrCheckerMap.end()) {
 			(this->*it2->second)(it, nodeList);
-		} else {
-			std::cout << "UNKNOWN : " << (*it)->convertEnumTk((*it)->getToken()) << std::endl;
 		}
 	}
 }
@@ -46,10 +44,28 @@ std::list<ParsedNode *> Parser::getParsedNodeList(void) const {
 	return this->_parsedNodeList;
 }
 
+Parser::SynthaxException::SynthaxException(void) { }
+
+Parser::SynthaxException::SynthaxException(const Parser::SynthaxException &src) {
+	*this = src;
+}
+
+Parser::SynthaxException::~SynthaxException(void) throw() { }
+
+Parser::SynthaxException & Parser::SynthaxException::operator=(const Parser::SynthaxException &rhs) {
+	if (this != &rhs) {
+	}
+	return *this;
+}
+
+const char *Parser::SynthaxException::what() const throw() {
+	return "Synthax Error Exception";
+}
+
 void Parser::printError(void) {
 	for (std::list<Error *>::iterator it = this->_errorList.begin(); it != this->_errorList.end(); ++it) {
-		std::cerr << "Parsing error : " << (*it)->type << " col : "
-				  << (*it)->col << " line : " << (*it)->line << std::endl;
+		Parser::SynthaxException e;
+		std::cerr << e.what() << ", " << (*it)->type << " col : " << (*it)->col << " line : " << (*it)->line << std::endl;
 	}
 	for (std::list<Error *>::iterator it = this->_errorList.begin(); it != this->_errorList.end(); ++it) {
 		delete *it;

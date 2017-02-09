@@ -1,4 +1,5 @@
 #include <iostream>
+#include <VirtualMachine.class.hpp>
 #include "Lexer.class.hpp"
 #include "Parser.class.hpp"
 
@@ -29,8 +30,11 @@ int		main(int ac, char **av) {
 		}
 
 		for (std::list<ParsedNode*>::iterator it = parsedListParser.begin(); it != parsedListParser.end(); ++it) {
-			std::cout << *(*it);
+			//std::cout << *(*it);
 		}
+
+		VirtualMachine VM(parsedListParser);
+
 
 	} else {
 		Lexer l;

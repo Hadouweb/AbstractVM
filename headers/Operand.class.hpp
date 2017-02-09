@@ -2,7 +2,10 @@
 # define OPERAND_CLASS_HPP
 
 #include <string>
+#include <typeinfo>
 #include "IOperand.class.hpp"
+#include <climits>
+#include <list>
 
 template <typename T>
 class Operand : public IOperand {
@@ -23,12 +26,25 @@ public:
 	virtual const IOperand *operator%(IOperand const &rhs) const override;
 	virtual const std::string &toString(void) const override;
 
+	class OverflowException : public std::exception {
+		public:
+			OverflowException(void);
+			OverflowException(OverflowException const & src);
+			~OverflowException(void) throw();
+			virtual const char* what() const throw();
+		private:
+			OverflowException & operator=(OverflowException const & rhs);
+	};
+
 private:
-	const int _precision;
-	const eOperandType _type;
+	int _precision;
+	eOperandType _type;
 	std::string _strValue;
 	T _value;
+
 	Operand(void);
+	void convertType(void);
+	void overflowTest(double val);
 };
 
 #endif

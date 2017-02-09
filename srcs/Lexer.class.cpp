@@ -400,9 +400,29 @@ void Lexer::forEachChar(std::istream & is) {
 	this->pushToken(line, col);
 }
 
+Lexer::UnknownTokenException::UnknownTokenException(void) { }
+
+Lexer::UnknownTokenException::UnknownTokenException(const Lexer::UnknownTokenException &src) {
+	*this = src;
+}
+
+Lexer::UnknownTokenException::~UnknownTokenException(void) throw() { }
+
+Lexer::UnknownTokenException & Lexer::UnknownTokenException::operator=(const Lexer::UnknownTokenException &rhs) {
+	if (this != &rhs) {
+	}
+	return *this;
+}
+
+const char *Lexer::UnknownTokenException::what() const throw() {
+	return "Unknown Token Exception";
+}
+
 void Lexer::printError(void) {
 	for (std::list<Node *>::iterator it = this->_errorList.begin(); it != this->_errorList.end(); ++it) {
-		std::cerr << "Synthax Error, unknown token col: " << (*it)->getNumCol() << " line: " << (*it)->getNumLine() << std::endl;
+		Lexer::UnknownTokenException e;
+		e.what();
+		std::cerr << e.what() << ", col: " << (*it)->getNumCol() << " line: " << (*it)->getNumLine() << std::endl;
 		delete *it;
 	}
 	this->_errorList.clear();

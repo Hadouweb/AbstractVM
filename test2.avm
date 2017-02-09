@@ -1,3 +1,5 @@
-push float(42.4) ; lol bla bla
-pop ; klsadjksahdjksahdkf add
-print
+push int8(42)
+push int16(431232)
+push int32(41)
+push float(42.2)
+push double(42.3)
