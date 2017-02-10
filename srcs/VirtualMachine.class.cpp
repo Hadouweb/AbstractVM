@@ -209,6 +209,7 @@ void VirtualMachine::execInstrPrint(std::list<ParsedNode *>::iterator &it, std::
 }
 
 void VirtualMachine::execInstrExit(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+	exit(0);
 	if (parsedList.size() && *it)
 		;
 	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
