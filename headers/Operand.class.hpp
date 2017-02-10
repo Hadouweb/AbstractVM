@@ -7,6 +7,8 @@
 #include <climits>
 #include <list>
 #include "Factory.class.hpp"
+#include <sstream>
+#include <cmath>
 
 template <typename T>
 class Operand : public IOperand {

@@ -14,7 +14,7 @@ Operand<T>::Operand(std::string pValue, enum eOperandType type)
 
 template <typename T>
 Operand<T>::Operand(Operand const &src)
-	: _precision(src._precision), _type(src._type), _strValue(src._strValue) {
+	: _strValue(src._strValue), _type(src._type), _precision(src._precision) {
 	*this = src;
 }
 
@@ -54,8 +54,8 @@ void Operand<T>::convertType(void) {
 	try {
 		this->overflowTest(val);
 	} catch (std::exception & e) {
-		std::string str = " for value: " + this->_strValue;
-		VirtualMachine::exceptionList.push_back(e.what() + str);
+		std::cerr << e.what() << " for value: " + this->_strValue;
+		exit(1);
 	}
 
 	//std::cout << "final val: " << this->_value << std::endl;
@@ -74,27 +74,87 @@ eOperandType Operand<T>::getType(void) const {
 
 template <typename T>
 const IOperand *Operand<T>::operator+(const IOperand &rhs) const {
-	return rhs.operator+(*this);
+	std::stringstream stream;
+	double	val;
+
+	stream.str(rhs.toString());
+	stream >> val;
+
+	Operand * io = new Operand(*this);
+	val = val + this->_value;
+	io->_strValue = std::to_string(val);
+	io->convertType();
+	io->_strValue = std::to_string(io->_value);
+
+	return io;
 }
 
 template <typename T>
 const IOperand *Operand<T>::operator-(const IOperand &rhs) const {
-	return rhs.operator-(*this);
+	std::stringstream stream;
+	double	val;
+
+	stream.str(rhs.toString());
+	stream >> val;
+
+	Operand * io = new Operand(*this);
+	val = val - this->_value;
+	io->_strValue = std::to_string(val);
+	io->convertType();
+	io->_strValue = std::to_string(io->_value);
+
+	return io;
 }
 
 template <typename T>
 const IOperand *Operand<T>::operator*(const IOperand &rhs) const {
-	return rhs.operator*(*this);
+	std::stringstream stream;
+	double	val;
+
+	stream.str(rhs.toString());
+	stream >> val;
+
+	Operand * io = new Operand(*this);
+	val = val * this->_value;
+	io->_strValue = std::to_string(val);
+	io->convertType();
+	io->_strValue = std::to_string(io->_value);
+
+	return io;
 }
 
 template <typename T>
 const IOperand *Operand<T>::operator/(const IOperand &rhs) const {
-	return rhs.operator/(*this);
+	std::stringstream stream;
+	double	val;
+
+	stream.str(rhs.toString());
+	stream >> val;
+
+	Operand * io = new Operand(*this);
+	val = val / this->_value;
+	io->_strValue = std::to_string(val);
+	io->convertType();
+	io->_strValue = std::to_string(io->_value);
+
+	return io;
 }
 
 template <typename T>
 const IOperand *Operand<T>::operator%(const IOperand &rhs) const {
-	return rhs.operator%(*this);
+	std::stringstream stream;
+	double	val;
+
+	stream.str(rhs.toString());
+	stream >> val;
+
+	Operand * io = new Operand(*this);
+	val = std::fmod(val, this->_value);
+	io->_strValue = std::to_string(val);
+	io->convertType();
+	io->_strValue = std::to_string(io->_value);
+
+	return io;
 }
 
 template <typename T>

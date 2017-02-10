@@ -1,3 +1,5 @@
-push int32(-19)
-push int8(42)
-pop
+push int16(100)
+push int16(153)
+push int16(10)
+mod
+dump

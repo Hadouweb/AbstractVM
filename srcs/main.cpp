@@ -35,13 +35,8 @@ int		main(int ac, char **av) {
 
 		VirtualMachine VM(parsedListParser);
 
-		std::list<std::string> eList = VirtualMachine::exceptionList;
 
-		for (std::list<std::string>::iterator it = eList.begin(); it != eList.end(); ++it) {
-			std::cout << (*it) << std::endl;
-		}
-
-		VM.printOpStack();
+		//VM.printOpStack();
 
 
 	} else {
