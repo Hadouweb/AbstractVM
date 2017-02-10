@@ -1,12 +1,3 @@
-push int32(42)
-push int32(33)
-add  ;poney
-push float(44.55)
-mul
-push double(42.42)
-;commentaire de ouf
-push int32(42)
-dump
+push int32(-19)
+push int8(42)
 pop
-assert double(42.42)
-exit

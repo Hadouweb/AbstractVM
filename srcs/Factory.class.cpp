@@ -10,28 +10,28 @@ Factory::~Factory(void) {
 }
 
 const IOperand * Factory::createOperand(eOperandType type, const std::string &value) const {
-	int index = static_cast<int>(type);
-	return (this->*createFuncArray[index])(value);;
+// int index = static_cast<int>(type);
+	return (this->*createFuncArray[type])(value);
 }
 
 const IOperand *Factory::createInt8(const std::string &value) const {
-	return new Operand<int8_t>(value);
+	return new Operand<int8_t>(value, INT_8);
 }
 
 const IOperand *Factory::createInt16(const std::string &value) const {
-	return new Operand<int16_t>(value);
+	return new Operand<int16_t>(value, INT_16);
 }
 
 const IOperand *Factory::createInt32(const std::string &value) const {
-	return new Operand<int32_t>(value);
+	return new Operand<int32_t>(value, INT_32);
 }
 
 const IOperand *Factory::createFloat(const std::string &value) const {
-	return new Operand<float>(value);
+	return new Operand<float>(value, FLOAT);
 }
 
 const IOperand *Factory::createDouble(const std::string &value) const {
-	return new Operand<double>(value);
+	return new Operand<double>(value, DOUBLE);
 }
 
 Factory::Factory(Factory const &src) {

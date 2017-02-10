@@ -65,31 +65,60 @@ void VirtualMachine::execInstrPush(std::list<ParsedNode *>::iterator &it, std::l
 
 	if (parsedList.size())
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
+	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrPop(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
-	if (parsedList.size())
+	this->_OpStack.pop_front();
+	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
+	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrDump(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
-	if (parsedList.size())
+
+	this->printOpStack();
+
+	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
+	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrAssert(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
-	if (parsedList.size())
+	IOperand const * opTop = *this->_OpStack.begin();
+	std::string value = getValueOnly((*it)->getValue());
+	if (opTop->toString().compare(value) == 0)
+		std::cout << "OK" << std::endl;
+	else
+		std::cerr << "ERROR3" << std::endl;
+
+	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
+	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrAdd(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
-	if (parsedList.size())
+	IOperand const * opTop1 = *this->_OpStack.begin();
+	if (opTop1)
+		this->_OpStack.pop_front();
+	IOperand const * opTop2 = *this->_OpStack.begin();
+	if (opTop2)
+		this->_OpStack.pop_front();
+
+	if (opTop1 && opTop2) {
+		IOperand const * op = *opTop1 + *opTop2;
+
+
+
+		std::cout << op->toString() << std::endl;
+		std::cout << opTop1->toString() << std::endl;
+		std::cout << opTop2->toString() << std::endl;
+	} else
+		std::cerr << "ERROR4" << std::endl;
+
+	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
+	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrSub(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
@@ -117,14 +146,30 @@ void VirtualMachine::execInstrMod(std::list<ParsedNode *>::iterator &it, std::li
 }
 
 void VirtualMachine::execInstrPrint(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
-	if (parsedList.size())
+	IOperand const * opTop = *this->_OpStack.begin();
+
+	if (opTop->getType() == INT_8) {
+		char c = std::stoi(opTop->toString());
+		std::cout << c;
+	} else
+		std::cerr << "ERROR2" << std::endl;
+
+
+	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
+	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrExit(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
-	if (parsedList.size())
+	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
+	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
+void VirtualMachine::printOpStack(void) const {
+	for(std::list<IOperand const *>::const_iterator it = this->_OpStack.begin(); it != this->_OpStack.end(); ++it) {
+		std::cout << (*it)->toString() << std::endl;
+	}
+}
+
+std::list<std::string> VirtualMachine::exceptionList;

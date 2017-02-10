@@ -16,6 +16,7 @@ public:
 
     VirtualMachine & operator=(VirtualMachine const & rhs);
 	static std::list<std::string> exceptionList;
+	void printOpStack(void) const;
 
 
 private:

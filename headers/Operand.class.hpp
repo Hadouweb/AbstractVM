@@ -6,11 +6,12 @@
 #include "IOperand.class.hpp"
 #include <climits>
 #include <list>
+#include "Factory.class.hpp"
 
 template <typename T>
 class Operand : public IOperand {
 public:
-	Operand(std::string pValue);
+	Operand(std::string pValue, enum eOperandType type);
     Operand(Operand const & src);
 
     ~Operand(void);
@@ -37,9 +38,9 @@ public:
 	};
 
 private:
-	int _precision;
-	eOperandType _type;
 	std::string _strValue;
+	eOperandType _type;
+	int _precision;
 	T _value;
 
 	Operand(void);

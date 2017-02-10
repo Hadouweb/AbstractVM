@@ -101,6 +101,7 @@ e_sts Lexer::funcName(const char c, const uint8_t index) { \
 	} \
 }
 
+
 TOKEN_DEFINE_4(tkPush, "push");
 TOKEN_DEFINE_3(tkPop, "pop");
 TOKEN_DEFINE_4(tkDump, "dump)");
@@ -367,6 +368,8 @@ void Lexer::forEachChar(std::istream & is) {
 	unsigned int col = 0;
 	unsigned int line = 0;
 	char c = is.get();
+
+	//this->printStatus();
 
 	while(c >= 0) {
 		//std::cout << "|" << c << "|" << std::endl;

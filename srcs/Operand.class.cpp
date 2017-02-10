@@ -7,8 +7,8 @@ Operand<T>::Operand(void) {
 }
 
 template<typename T>
-Operand<T>::Operand(std::string pValue)
-	: _strValue(pValue) {
+Operand<T>::Operand(std::string pValue, enum eOperandType type)
+	: _strValue(pValue), _type(type) {
 	this->convertType();
 }
 
@@ -36,8 +36,8 @@ void Operand<T>::overflowTest(double val) {
 	double min = std::numeric_limits<T>::min();
 	double max = std::numeric_limits<T>::max();
 
-	std::cout << "min: " << min << std::endl;
-	std::cout << "max: " << max << std::endl;
+	//std::cout << "min: " << min << std::endl;
+	//std::cout << "max: " << max << std::endl;
 
 	if (val < min || val > max)
 		throw Operand::OverflowException();
@@ -47,19 +47,19 @@ void Operand<T>::overflowTest(double val) {
 
 template <typename T>
 void Operand<T>::convertType(void) {
-	std::cout << "str: " << this->_strValue << std::endl;
+	//std::cout << "str: " << this->_strValue << std::endl;
 
 	double val = std::atof(this->_strValue.c_str());
 
 	try {
 		this->overflowTest(val);
 	} catch (std::exception & e) {
-		std::cerr << e.what() << std::endl;
-		exit(1);
+		std::string str = " for value: " + this->_strValue;
+		VirtualMachine::exceptionList.push_back(e.what() + str);
 	}
 
-	std::cout << "final val: " << this->_value << std::endl;
-	std::cout << std::endl;
+	//std::cout << "final val: " << this->_value << std::endl;
+	//std::cout << std::endl;
 }
 
 template <typename T>
