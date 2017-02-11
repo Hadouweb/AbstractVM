@@ -65,7 +65,7 @@ void VirtualMachine::execInstrPush(std::list<ParsedNode *>::iterator &it, std::l
 
 	if (parsedList.size())
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
+	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrPop(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {

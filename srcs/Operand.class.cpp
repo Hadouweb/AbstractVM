@@ -15,7 +15,8 @@ Operand<T>::Operand(std::string pValue, enum eOperandType type)
 template <typename T>
 Operand<T>::Operand(Operand const &src)
 	: _strValue(src._strValue), _type(src._type), _precision(src._precision) {
-	*this = src;
+	//*this = src;
+	std::cout << "FUCK" << std::endl;
 }
 
 template <typename T>
@@ -36,9 +37,6 @@ void Operand<T>::overflowTest(double val) {
 	double min = std::numeric_limits<T>::min();
 	double max = std::numeric_limits<T>::max();
 
-	//std::cout << "min: " << min << std::endl;
-	//std::cout << "max: " << max << std::endl;
-
 	if (val < min || val > max)
 		throw Operand::OverflowException();
 	else
@@ -47,8 +45,7 @@ void Operand<T>::overflowTest(double val) {
 
 template <typename T>
 void Operand<T>::convertType(void) {
-	//std::cout << "str: " << this->_strValue << std::endl;
-
+	this->_precision = sizeof(T);
 	double val = std::atof(this->_strValue.c_str());
 
 	try {
@@ -57,9 +54,6 @@ void Operand<T>::convertType(void) {
 		std::cerr << e.what() << " for value: " + this->_strValue;
 		exit(1);
 	}
-
-	//std::cout << "final val: " << this->_value << std::endl;
-	//std::cout << std::endl;
 }
 
 template <typename T>
@@ -73,6 +67,11 @@ eOperandType Operand<T>::getType(void) const {
 }
 
 template <typename T>
+Operand<T> *Operand<T>::clone(void) const {
+	return new Operand<T>(this->_strValue, this->_type);
+}
+
+template <typename T>
 const IOperand *Operand<T>::operator+(const IOperand &rhs) const {
 	std::stringstream stream;
 	double	val;
@@ -80,7 +79,22 @@ const IOperand *Operand<T>::operator+(const IOperand &rhs) const {
 	stream.str(rhs.toString());
 	stream >> val;
 
-	Operand * io = new Operand(*this);
+	Operand * io;
+	if (this->getPrecision() > rhs.getPrecision())
+		io = this->clone();
+	else {
+		io = static_cast<const Operand &>(rhs).clone();
+		std::cout << "1 " << static_cast<const Operand &>(rhs)._precision << std::endl;
+		std::cout << "2 " << this->_precision << std::endl;
+		std::cout << "rhs" << std::endl;
+	}
+	//io->convertType();
+
+	std::cout << this->_value << " " <<  io->_value << std::endl;
+	std::cout << this->_precision << " " << io->_precision << std::endl;
+	std::cout << this->_strValue << " " << io->_strValue << std::endl;
+	std::cout << this->_type << " " << io->_type << std::endl;
+
 	val = val + this->_value;
 	io->_strValue = std::to_string(val);
 	io->convertType();
