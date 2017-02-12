@@ -7,12 +7,18 @@
 
 class Factory {
 public:
-    Factory(void);
-    ~Factory(void);
-
+	static Factory * getInstance() {
+		if (_singleton == NULL) {
+			_singleton = new Factory();
+		}
+		return _singleton;
+	}
 	IOperand const * createOperand( eOperandType type, std::string const & value ) const;
 
 private:
+	Factory(void);
+	~Factory(void);
+	static Factory *_singleton;
 
 	IOperand const * (Factory::*createFuncArray[NB_TYPE])(std::string const &) const = {
 			&Factory::createInt8,

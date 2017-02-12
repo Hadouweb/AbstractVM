@@ -87,8 +87,8 @@ const IOperand *Operand<T>::operator+(const IOperand &rhs) const {
 	stream.clear();
 	stream << val;
 
-	Factory f;
-	const IOperand * io = f.createOperand(mostAccurate, stream.str());
+	Factory * f = Factory::getInstance();
+	const IOperand * io = f->createOperand(mostAccurate, stream.str());
 
 	return io;
 }
@@ -113,8 +113,8 @@ const IOperand *Operand<T>::operator-(const IOperand &rhs) const {
 	stream.clear();
 	stream << val;
 
-	Factory f;
-	const IOperand * io = f.createOperand(mostAccurate, stream.str());
+	Factory * f = Factory::getInstance();
+	const IOperand * io = f->createOperand(mostAccurate, stream.str());
 
 	return io;
 }
@@ -139,8 +139,8 @@ const IOperand *Operand<T>::operator*(const IOperand &rhs) const {
 	stream.clear();
 	stream << val;
 
-	Factory f;
-	const IOperand * io = f.createOperand(mostAccurate, stream.str());
+	Factory * f = Factory::getInstance();
+	const IOperand * io = f->createOperand(mostAccurate, stream.str());
 
 	return io;
 }
@@ -169,8 +169,8 @@ const IOperand *Operand<T>::operator/(const IOperand &rhs) const {
 	stream.clear();
 	stream << val;
 
-	Factory f;
-	const IOperand * io = f.createOperand(mostAccurate, stream.str());
+	Factory * f = Factory::getInstance();
+	const IOperand * io = f->createOperand(mostAccurate, stream.str());
 
 	return io;
 }
@@ -200,8 +200,8 @@ const IOperand *Operand<T>::operator%(const IOperand &rhs) const {
 	stream.clear();
 	stream << val;
 
-	Factory f;
-	const IOperand * io = f.createOperand(mostAccurate, stream.str());
+	Factory * f = Factory::getInstance();
+	const IOperand * io = f->createOperand(mostAccurate, stream.str());
 
 	return io;
 }

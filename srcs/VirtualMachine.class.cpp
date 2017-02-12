@@ -1,13 +1,5 @@
 #include "VirtualMachine.class.hpp"
 
-VirtualMachine::VirtualMachine(void) {
-	// TODO
-}
-
-VirtualMachine::VirtualMachine(VirtualMachine const &src) {
-	*this = src;
-}
-
 VirtualMachine::~VirtualMachine(void) {
 	// TODO
 }
@@ -63,7 +55,7 @@ std::string VirtualMachine::getValueOnly(std::string str) {
 
 void VirtualMachine::execInstrPush(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
 	std::string value = getValueOnly((*it)->getValue());
-	const IOperand * op = this->_factory.createOperand(this->getEnumOperand((*it)->getTkValue()), value);
+	const IOperand * op = Factory::getInstance()->createOperand(this->getEnumOperand((*it)->getTkValue()), value);
 
 	this->_OpStack.push_front(op);
 

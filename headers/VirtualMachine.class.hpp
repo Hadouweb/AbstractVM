@@ -8,6 +8,8 @@
 #include "Factory.class.hpp"
 #include "Operand.class.hpp"
 
+class Factory;
+
 class VirtualMachine {
 public:
     VirtualMachine(std::list<ParsedNode*> parsedList);
@@ -73,7 +75,6 @@ private:
 			ValueExpectedException & operator=(ValueExpectedException const & rhs);
 	};
 
-	Factory _factory;
 	std::list<IOperand const *> _OpStack;
 };
 

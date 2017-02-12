@@ -29,98 +29,98 @@
     <favorites_list name="abstractVM" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.66974735">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/srcs/main.cpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="27" column="57" lean-forward="true" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
-                  <folding>
-                    <element signature="e#0#19#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Parser.class.hpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/headers/Parser.class.hpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="720">
-                  <caret line="53" column="54" lean-forward="true" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Parser.class.cpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/srcs/Parser.class.cpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="165">
-                  <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Lexer.class.hpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/headers/Lexer.class.hpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="27" column="7" lean-forward="true" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Node.class.cpp" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/srcs/Node.class.cpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1005">
-                  <caret line="67" column="32" lean-forward="false" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Lexer.class.cpp" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="822">
-                  <caret line="407" column="24" lean-forward="true" selection-start-line="407" selection-start-column="24" selection-end-line="407" selection-end-column="24" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="test1.avm" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/test1.avm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
-                  <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="12" selection-end-column="4" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="test2.avm" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/test2.avm">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="45">
-                  <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="test1.avm" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test1.avm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/srcs/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="558">
+              <caret line="31" column="34" lean-forward="false" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Factory.class.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/srcs/Factory.class.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="792">
+              <caret line="45" column="37" lean-forward="false" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Operand.class.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/srcs/Operand.class.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1072">
+              <caret line="203" column="71" lean-forward="false" selection-start-line="203" selection-start-column="71" selection-end-line="203" selection-end-column="71" />
+              <folding>
+                <element signature="e#74#86#0" expanded="true" />
+                <element signature="e#127#139#0" expanded="true" />
+                <element signature="e#274#286#0" expanded="true" />
+                <element signature="e#429#441#0" expanded="true" />
+                <element signature="e#492#504#0" expanded="true" />
+                <element signature="e#622#634#0" expanded="true" />
+                <element signature="e#967#979#0" expanded="true" />
+                <element signature="e#1252#1264#0" expanded="true" />
+                <element signature="e#1346#1358#0" expanded="true" />
+                <element signature="e#1439#1451#0" expanded="true" />
+                <element signature="e#1967#1979#0" expanded="true" />
+                <element signature="e#2495#2507#0" expanded="true" />
+                <element signature="e#3023#3035#0" expanded="true" />
+                <element signature="e#3634#3646#0" expanded="true" />
+                <element signature="e#4256#4268#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VirtualMachine.class.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/srcs/VirtualMachine.class.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VirtualMachine.class.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/headers/VirtualMachine.class.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+              <folding>
+                <element signature="e#58#77#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Factory.class.hpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/headers/Factory.class.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -150,6 +150,7 @@
       <find>print</find>
       <find>Exit</find>
       <find>lol</find>
+      <find>Dump</find>
     </findStrings>
     <replaceStrings>
       <replace>tk</replace>
@@ -182,25 +183,25 @@
         <option value="$PROJECT_DIR$/headers/IOperand.class.hpp" />
         <option value="$PROJECT_DIR$/headers/ParsedNode.class.hpp" />
         <option value="$PROJECT_DIR$/srcs/ParsedNode.class.cpp" />
-        <option value="$PROJECT_DIR$/headers/Factory.class.hpp" />
         <option value="$PROJECT_DIR$/srcs/Exception.class.cpp" />
         <option value="$PROJECT_DIR$/headers/Exception.class.hpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/Makefile" />
-        <option value="$PROJECT_DIR$/srcs/Factory.class.cpp" />
-        <option value="$PROJECT_DIR$/headers/VirtualMachine.class.hpp" />
         <option value="$PROJECT_DIR$/headers/Operand.class.hpp" />
-        <option value="$PROJECT_DIR$/srcs/VirtualMachine.class.cpp" />
-        <option value="$PROJECT_DIR$/srcs/Operand.class.cpp" />
         <option value="$PROJECT_DIR$/headers/Parser.class.hpp" />
         <option value="$PROJECT_DIR$/headers/Node.class.hpp" />
         <option value="$PROJECT_DIR$/srcs/Node.class.cpp" />
         <option value="$PROJECT_DIR$/headers/Lexer.class.hpp" />
-        <option value="$PROJECT_DIR$/srcs/main.cpp" />
-        <option value="$PROJECT_DIR$/test1.avm" />
         <option value="$PROJECT_DIR$/srcs/Parser.class.cpp" />
         <option value="$PROJECT_DIR$/srcs/Lexer.class.cpp" />
+        <option value="$PROJECT_DIR$/srcs/main.cpp" />
+        <option value="$PROJECT_DIR$/headers/Factory.class.hpp" />
+        <option value="$PROJECT_DIR$/srcs/Operand.class.cpp" />
+        <option value="$PROJECT_DIR$/headers/VirtualMachine.class.hpp" />
+        <option value="$PROJECT_DIR$/srcs/Factory.class.cpp" />
         <option value="$PROJECT_DIR$/test2.avm" />
+        <option value="$PROJECT_DIR$/test1.avm" />
+        <option value="$PROJECT_DIR$/srcs/VirtualMachine.class.cpp" />
       </list>
     </option>
   </component>
@@ -212,7 +213,7 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="width" value="1924" />
+    <option name="width" value="1915" />
     <option name="height" value="1440" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -480,12 +481,21 @@
   <component name="TimeTrackingManager">
     <option name="totallyTimeSpent" value="33064000" />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1924" height="1440" extended-state="0" />
+    <frame x="0" y="0" width="1915" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="CGEdit" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1471361" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13463569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -659,13 +669,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sample.avm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/sample.avm" />
     <entry file="file:///usr/include/string.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -725,67 +729,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/headers/Factory.class.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/headers/IOperand.class.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="5" lean-forward="false" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srcs/Factory.class.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" column="26" lean-forward="false" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/headers/VirtualMachine.class.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="41" column="28" lean-forward="true" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srcs/VirtualMachine.class.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="9" lean-forward="true" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/srcs/Operand.class.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="161" column="28" lean-forward="true" selection-start-line="161" selection-start-column="28" selection-end-line="161" selection-end-column="28" />
-          <folding>
-            <element signature="e#74#86#0" expanded="true" />
-            <element signature="e#127#139#0" expanded="true" />
-            <element signature="e#274#286#0" expanded="true" />
-            <element signature="e#429#441#0" expanded="true" />
-            <element signature="e#492#504#0" expanded="true" />
-            <element signature="e#622#634#0" expanded="true" />
-            <element signature="e#967#979#0" expanded="true" />
-            <element signature="e#1252#1264#0" expanded="true" />
-            <element signature="e#1346#1358#0" expanded="true" />
-            <element signature="e#1439#1451#0" expanded="true" />
-            <element signature="e#1939#1951#0" expanded="true" />
-            <element signature="e#2439#2451#0" expanded="true" />
-            <element signature="e#2939#2951#0" expanded="true" />
-            <element signature="e#3522#3534#0" expanded="true" />
-            <element signature="e#4116#4128#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -803,7 +751,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="23" column="7" lean-forward="false" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -823,6 +770,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-670">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/srcs/Node.class.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
@@ -831,20 +786,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/srcs/main.cpp">
+    <entry file="file://$PROJECT_DIR$/headers/Lexer.class.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="57" lean-forward="true" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/headers/Parser.class.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="53" column="54" lean-forward="true" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
+        <state relative-caret-position="315">
+          <caret line="27" column="7" lean-forward="false" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -852,39 +797,99 @@
     <entry file="file://$PROJECT_DIR$/srcs/Parser.class.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+          <caret line="11" column="1" lean-forward="false" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/headers/Lexer.class.hpp">
+    <entry file="file://$PROJECT_DIR$/headers/Parser.class.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="27" column="7" lean-forward="true" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+        <state relative-caret-position="720">
+          <caret line="53" column="54" lean-forward="false" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test1.avm">
+    <entry file="file://$PROJECT_DIR$/srcs/Factory.class.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="12" selection-end-column="4" />
+        <state relative-caret-position="792">
+          <caret line="45" column="37" lean-forward="false" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/headers/Factory.class.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/headers/VirtualMachine.class.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+          <folding>
+            <element signature="e#58#77#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test2.avm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
+        <state relative-caret-position="54">
           <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
+    <entry file="file://$PROJECT_DIR$/srcs/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="822">
-          <caret line="407" column="24" lean-forward="true" selection-start-line="407" selection-start-column="24" selection-end-line="407" selection-end-column="24" />
+        <state relative-caret-position="558">
+          <caret line="31" column="34" lean-forward="false" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcs/Operand.class.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1072">
+          <caret line="203" column="71" lean-forward="false" selection-start-line="203" selection-start-column="71" selection-end-line="203" selection-end-column="71" />
+          <folding>
+            <element signature="e#74#86#0" expanded="true" />
+            <element signature="e#127#139#0" expanded="true" />
+            <element signature="e#274#286#0" expanded="true" />
+            <element signature="e#429#441#0" expanded="true" />
+            <element signature="e#492#504#0" expanded="true" />
+            <element signature="e#622#634#0" expanded="true" />
+            <element signature="e#967#979#0" expanded="true" />
+            <element signature="e#1252#1264#0" expanded="true" />
+            <element signature="e#1346#1358#0" expanded="true" />
+            <element signature="e#1439#1451#0" expanded="true" />
+            <element signature="e#1967#1979#0" expanded="true" />
+            <element signature="e#2495#2507#0" expanded="true" />
+            <element signature="e#3023#3035#0" expanded="true" />
+            <element signature="e#3634#3646#0" expanded="true" />
+            <element signature="e#4256#4268#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test1.avm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcs/VirtualMachine.class.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding />
         </state>
       </provider>

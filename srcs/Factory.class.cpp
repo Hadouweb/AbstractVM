@@ -42,3 +42,5 @@ Factory &Factory::operator=(Factory const &rhs) {
 	if (this != &rhs) { }
 	return *this;
 }
+
+Factory * Factory::_singleton = NULL;
