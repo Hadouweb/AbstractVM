@@ -37,10 +37,12 @@ Error::Error(unsigned int col, unsigned int line, std::string type)
 void Parser::makeParsing(std::list<Node *> nodeList) {
 	bool exit = false;
 	for (std::list<Node*>::iterator it = nodeList.begin(); it != nodeList.end(); ++it) {
-		if ((*it)->getToken() == TK_INSTR_EXIT)
-			exit = true;
 		instrMapType::iterator it2 = this->_instrCheckerMap.find((*it)->getToken());
 		if (it2 != this->_instrCheckerMap.end()) {
+			if ((*it)->getToken() == TK_INSTR_EXIT) {
+				exit = true;
+				break ;
+			}
 			(this->*it2->second)(it, nodeList);
 		}
 	}
@@ -127,8 +129,8 @@ bool Parser::endLine(std::list<Node *>::iterator &it, std::list<Node *> nodeList
 		if (it != nodeList.end() && (*it)->getToken() == TK_END_LINE) {
 			return true;
 		}
+		this->pushError((*it)->getNumCol(), (*it)->getNumLine(), "end line expected");
 	}
-	this->pushError((*it)->getNumCol(), (*it)->getNumLine(), "end line expected");
 	return false;
 }
 
@@ -248,7 +250,6 @@ void Parser::parse_instr_print(std::list<Node*>::iterator & it, std::list<Node *
 
 void Parser::parse_instr_exit(std::list<Node*>::iterator & it, std::list<Node *> nodeList) {
 	this->_parsedNodeList.push_back(new ParsedNode(TK_INSTR_EXIT, NB_TK, ""));
-	it++;
 	this->endLine(it, nodeList);
 }
 
