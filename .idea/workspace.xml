@@ -29,14 +29,14 @@
     <favorites_list name="abstractVM" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.43438077">
+    <splitter split-orientation="horizontal" split-proportion="0.53111523">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/srcs/main.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+                <state relative-caret-position="615">
+                  <caret line="41" column="1" lean-forward="true" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
                   <folding>
                     <element signature="e#0#19#0" expanded="true" />
                   </folding>
@@ -71,8 +71,8 @@
           <file leaf-file-name="Lexer.class.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="668">
-                  <caret line="396" column="34" lean-forward="true" selection-start-line="396" selection-start-column="34" selection-end-line="396" selection-end-column="34" />
+                <state relative-caret-position="638">
+                  <caret line="129" column="5" lean-forward="false" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
                   <folding />
                 </state>
               </provider>
@@ -822,21 +822,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="396" column="34" lean-forward="true" selection-start-line="396" selection-start-column="34" selection-end-line="396" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/srcs/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        <state relative-caret-position="615">
+          <caret line="41" column="1" lean-forward="true" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/srcs/Lexer.class.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="129" column="5" lean-forward="false" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
