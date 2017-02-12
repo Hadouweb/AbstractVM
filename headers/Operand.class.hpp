@@ -48,7 +48,6 @@ private:
 	Operand(void);
 	void convertType(void);
 	void overflowTest(double val);
-	Operand * clone(void) const;
 };
 
 #endif

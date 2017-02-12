@@ -1,4 +1,4 @@
-push float(42.342)
-push int16(100)
+push int16(42)
+push int8(120)
 add
 dump

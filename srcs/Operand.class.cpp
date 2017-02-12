@@ -15,8 +15,7 @@ Operand<T>::Operand(std::string pValue, enum eOperandType type)
 template <typename T>
 Operand<T>::Operand(Operand const &src)
 	: _strValue(src._strValue), _type(src._type), _precision(src._precision) {
-	//*this = src;
-	std::cout << "FUCK" << std::endl;
+	*this = src;
 }
 
 template <typename T>
@@ -67,106 +66,127 @@ eOperandType Operand<T>::getType(void) const {
 }
 
 template <typename T>
-Operand<T> *Operand<T>::clone(void) const {
-	return new Operand<T>(this->_strValue, this->_type);
-}
-
-template <typename T>
 const IOperand *Operand<T>::operator+(const IOperand &rhs) const {
+	eOperandType mostAccurate;
 	std::stringstream stream;
-	double	val;
+	double val;
+
+	if (this->getPrecision() > rhs.getPrecision())
+		mostAccurate = this->getType();
+	else
+		mostAccurate = rhs.getType();
 
 	stream.str(rhs.toString());
 	stream >> val;
 
-	Operand * io;
-	if (this->getPrecision() > rhs.getPrecision())
-		io = this->clone();
-	else {
-		io = static_cast<const Operand &>(rhs).clone();
-		std::cout << "1 " << static_cast<const Operand &>(rhs)._precision << std::endl;
-		std::cout << "2 " << this->_precision << std::endl;
-		std::cout << "rhs" << std::endl;
-	}
-	//io->convertType();
-
-	std::cout << this->_value << " " <<  io->_value << std::endl;
-	std::cout << this->_precision << " " << io->_precision << std::endl;
-	std::cout << this->_strValue << " " << io->_strValue << std::endl;
-	std::cout << this->_type << " " << io->_type << std::endl;
-
 	val = val + this->_value;
-	io->_strValue = std::to_string(val);
-	io->convertType();
-	io->_strValue = std::to_string(io->_value);
+
+	stream.clear();
+	stream << val;
+
+	Factory f;
+	const IOperand * io = f.createOperand(mostAccurate, stream.str());
 
 	return io;
 }
 
 template <typename T>
 const IOperand *Operand<T>::operator-(const IOperand &rhs) const {
+	eOperandType mostAccurate;
 	std::stringstream stream;
-	double	val;
+	double val;
+
+	if (this->getPrecision() > rhs.getPrecision())
+		mostAccurate = this->getType();
+	else
+		mostAccurate = rhs.getType();
 
 	stream.str(rhs.toString());
 	stream >> val;
 
-	Operand * io = new Operand(*this);
 	val = val - this->_value;
-	io->_strValue = std::to_string(val);
-	io->convertType();
-	io->_strValue = std::to_string(io->_value);
+
+	stream.clear();
+	stream << val;
+
+	Factory f;
+	const IOperand * io = f.createOperand(mostAccurate, stream.str());
 
 	return io;
 }
 
 template <typename T>
 const IOperand *Operand<T>::operator*(const IOperand &rhs) const {
+	eOperandType mostAccurate;
 	std::stringstream stream;
-	double	val;
+	double val;
+
+	if (this->getPrecision() > rhs.getPrecision())
+		mostAccurate = this->getType();
+	else
+		mostAccurate = rhs.getType();
 
 	stream.str(rhs.toString());
 	stream >> val;
 
-	Operand * io = new Operand(*this);
 	val = val * this->_value;
-	io->_strValue = std::to_string(val);
-	io->convertType();
-	io->_strValue = std::to_string(io->_value);
+
+	stream.clear();
+	stream << val;
+
+	Factory f;
+	const IOperand * io = f.createOperand(mostAccurate, stream.str());
 
 	return io;
 }
 
 template <typename T>
 const IOperand *Operand<T>::operator/(const IOperand &rhs) const {
+	eOperandType mostAccurate;
 	std::stringstream stream;
-	double	val;
+	double val;
+
+	if (this->getPrecision() > rhs.getPrecision())
+		mostAccurate = this->getType();
+	else
+		mostAccurate = rhs.getType();
 
 	stream.str(rhs.toString());
 	stream >> val;
 
-	Operand * io = new Operand(*this);
 	val = val / this->_value;
-	io->_strValue = std::to_string(val);
-	io->convertType();
-	io->_strValue = std::to_string(io->_value);
+
+	stream.clear();
+	stream << val;
+
+	Factory f;
+	const IOperand * io = f.createOperand(mostAccurate, stream.str());
 
 	return io;
 }
 
 template <typename T>
 const IOperand *Operand<T>::operator%(const IOperand &rhs) const {
+
+	eOperandType mostAccurate;
 	std::stringstream stream;
-	double	val;
+	double val;
+
+	if (this->getPrecision() > rhs.getPrecision())
+		mostAccurate = this->getType();
+	else
+		mostAccurate = rhs.getType();
 
 	stream.str(rhs.toString());
 	stream >> val;
 
-	Operand * io = new Operand(*this);
 	val = std::fmod(val, this->_value);
-	io->_strValue = std::to_string(val);
-	io->convertType();
-	io->_strValue = std::to_string(io->_value);
+
+	stream.clear();
+	stream << val;
+
+	Factory f;
+	const IOperand * io = f.createOperand(mostAccurate, stream.str());
 
 	return io;
 }

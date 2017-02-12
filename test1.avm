@@ -1,4 +1,4 @@
-push int16(100)
-push float(42.342)
-add
+push int16(2000)
+push int8(100)
+mul
 dump
