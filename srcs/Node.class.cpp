@@ -64,6 +64,8 @@ std::string Node::convertEnumTk(e_tk e) {
 			return "TK_END_LINE";
 		case TK_WHITE_SPACE:
 			return "TK_WHITE_SPACE";
+		case TK_DSEMI_COL:
+			return "TK_DSEMI_COL";
 		case NB_TK:
 			return "NB_TK";
 	}

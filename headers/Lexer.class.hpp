@@ -65,6 +65,7 @@ private:
 	e_sts tkComment(const char c, const uint8_t index);
 	e_sts tkEndLine(const char c, const uint8_t index);
 	e_sts tkWhiteSpace(const char c, const uint8_t index);
+	e_sts tkDSemiCol(const char c, const uint8_t index);
 
 	std::list<Node*> _nodeList;
 	std::list<Node*> _errorList;
@@ -90,6 +91,7 @@ private:
 		&Lexer::tkComment,
 		&Lexer::tkEndLine,
 		&Lexer::tkWhiteSpace,
+		&Lexer::tkDSemiCol,
 	};
 
 	class UnknownTokenException : public std::exception {

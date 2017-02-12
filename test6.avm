@@ -1,4 +1,0 @@
-push int16(42)
-push int8(120)
-add
-dump

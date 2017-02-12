@@ -10,6 +10,10 @@ Lexer::Lexer(std::string fileName)
 	: _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _state(NB_TK), _chunk(NB_TK) {
 	// TODO ERROR IFS
 	std::ifstream ifs(fileName);
+	if (!ifs.good()) {
+		std::cerr << "File not found" << std::endl;
+		exit(1);
+	}
 	this->forEachChar(ifs);
 }
 
@@ -46,6 +50,16 @@ e_sts Lexer::funcName(const char c, const uint8_t index) { \
 	switch(this->_state[index]) { \
 		case 0: return c == str[0] ? (this->_state[index] = 1, STS_ACCEPT) : (this->_state[index] = 0, STS_REJECT); \
 		case 1: return this->_state[index] = 0, STS_REJECT; \
+		default: abort(); \
+	} \
+}
+
+#define TOKEN_DEFINE_2(funcName, str) \
+e_sts Lexer::funcName(const char c, const uint8_t index) { \
+	switch(this->_state[index]) { \
+		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
+		case 1: return c == str[1] ? (this->_state[index] = 2, STS_ACCEPT) : (this->_state[index] = 0, STS_REJECT); \
+		case 2: return this->_state[index] = 0, STS_REJECT; \
 		default: abort(); \
 	} \
 }
@@ -116,6 +130,7 @@ TOKEN_DEFINE_4(tkExit, "exit");
 TOKEN_DEFINE_1(tkComment, ";");
 TOKEN_DEFINE_1(tkEndLine, "\n");
 TOKEN_DEFINE_1(tkWhiteSpace, " ");
+TOKEN_DEFINE_2(tkDSemiCol, ";;");
 
 e_sts Lexer::tkInt8(const char c, const uint8_t index) {
 	std::string str = "int8(";
@@ -351,7 +366,6 @@ e_tk Lexer::getTokenFound(void) {
 enum e_tk Lexer::pushToken(unsigned int line, unsigned int col) {
 	e_tk token = getTokenFound();
 	int index = static_cast<int>(token);
-	//std::cout << "|" << this->_chunk[index] << "|" << std::endl;
 	if (token != NB_TK)
 		this->_nodeList.push_back(new Node(token, this->_chunk[index], line, col));
 	return token;
@@ -372,7 +386,6 @@ void Lexer::forEachChar(std::istream & is) {
 	//this->printStatus();
 
 	while(c >= 0) {
-		//std::cout << "|" << c << "|" << std::endl;
 		if (matchToken(c)) {
 			this->updateStatus();
 			c = is.get();
@@ -388,6 +401,8 @@ void Lexer::forEachChar(std::istream & is) {
 					i++;
 				}
 			}
+			if (token == TK_DSEMI_COL)
+				break ;
 			if (token == TK_COMMENT) {
 				while((c = is.get()) >= 0 && c != '\n') {
 					i++;

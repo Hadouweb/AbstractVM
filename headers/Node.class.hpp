@@ -24,6 +24,7 @@ enum e_tk {
 	TK_COMMENT,
 	TK_END_LINE,
 	TK_WHITE_SPACE,
+	TK_DSEMI_COL,
 	NB_TK,
 };
 
