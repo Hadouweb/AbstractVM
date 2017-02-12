@@ -1,4 +1,4 @@
-push int16(2000)
-push int8(100)
-mul
+push int16(420)
+pushint8(0)
+mod
 dump

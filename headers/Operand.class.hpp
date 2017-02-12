@@ -29,16 +29,6 @@ public:
 	virtual const IOperand *operator%(IOperand const &rhs) const override;
 	virtual const std::string &toString(void) const override;
 
-	class OverflowException : public std::exception {
-		public:
-			OverflowException(void);
-			OverflowException(OverflowException const & src);
-			~OverflowException(void) throw();
-			virtual const char* what() const throw();
-		private:
-			OverflowException & operator=(OverflowException const & rhs);
-	};
-
 private:
 	std::string _strValue;
 	eOperandType _type;

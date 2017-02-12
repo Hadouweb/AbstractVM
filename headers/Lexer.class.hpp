@@ -38,16 +38,6 @@ public:
 
 	static std::string convertStsEnum(enum e_sts sts);
 
-	class UnknownTokenException : public std::exception {
-		public:
-			UnknownTokenException(void);
-			~UnknownTokenException(void) throw();
-			virtual const char* what() const throw();
-		private:
-			UnknownTokenException(UnknownTokenException const & src);
-			UnknownTokenException & operator=(UnknownTokenException const & rhs);
-	};
-
 private:
 	void forEachChar(std::istream & is);
 	void updateStatus(void);
@@ -100,6 +90,16 @@ private:
 		&Lexer::tkComment,
 		&Lexer::tkEndLine,
 		&Lexer::tkWhiteSpace,
+	};
+
+	class UnknownTokenException : public std::exception {
+	public:
+		UnknownTokenException(void);
+		~UnknownTokenException(void) throw();
+		virtual const char* what() const throw();
+	private:
+		UnknownTokenException(UnknownTokenException const & src);
+		UnknownTokenException & operator=(UnknownTokenException const & rhs);
 	};
 
 	void printStatus(void);

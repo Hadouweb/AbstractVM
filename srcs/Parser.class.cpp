@@ -1,7 +1,14 @@
 #include "Parser.class.hpp"
 
 Parser::Parser(std::list<Node *> nodeList) {
-	this->makeParsing(nodeList);
+	try {
+		this->makeParsing(nodeList);
+	} catch (std::exception & e) {
+		if (this->_errorList.size() > 0)
+			this->printError();
+		std::cerr << e.what() << std::endl;
+		exit(1);
+	}
 }
 
 Parser::Parser(Parser const &src) {
@@ -28,11 +35,17 @@ Error::Error(unsigned int col, unsigned int line, std::string type)
 }
 
 void Parser::makeParsing(std::list<Node *> nodeList) {
+	bool exit = false;
 	for (std::list<Node*>::iterator it = nodeList.begin(); it != nodeList.end(); ++it) {
+		if ((*it)->getToken() == TK_INSTR_EXIT)
+			exit = true;
 		instrMapType::iterator it2 = this->_instrCheckerMap.find((*it)->getToken());
 		if (it2 != this->_instrCheckerMap.end()) {
 			(this->*it2->second)(it, nodeList);
 		}
+	}
+	if (!exit) {
+		throw Parser::ExitExpectedException();
 	}
 }
 
@@ -59,7 +72,25 @@ Parser::SynthaxException & Parser::SynthaxException::operator=(const Parser::Syn
 }
 
 const char *Parser::SynthaxException::what() const throw() {
-	return "Synthax Error Exception";
+	return "Exception: Synthax Error";
+}
+
+Parser::ExitExpectedException::ExitExpectedException(void) { }
+
+Parser::ExitExpectedException::ExitExpectedException(const Parser::ExitExpectedException &src) {
+	*this = src;
+}
+
+Parser::ExitExpectedException::~ExitExpectedException(void) throw() { }
+
+Parser::ExitExpectedException & Parser::ExitExpectedException::operator=(const Parser::ExitExpectedException &rhs) {
+	if (this != &rhs) {
+	}
+	return *this;
+}
+
+const char *Parser::ExitExpectedException::what() const throw() {
+	return "Exception: exit instruction is expected at the end";
 }
 
 void Parser::printError(void) {

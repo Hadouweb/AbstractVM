@@ -36,8 +36,10 @@ void Operand<T>::overflowTest(double val) {
 	double min = std::numeric_limits<T>::min();
 	double max = std::numeric_limits<T>::max();
 
-	if (val < min || val > max)
-		throw Operand::OverflowException();
+	if (val > max)
+		throw std::overflow_error("Overflow exception");
+	else if (val < min)
+		throw std::underflow_error("Underflow exception");
 	else
 		this->_value = static_cast<T>(val);
 }
@@ -81,6 +83,7 @@ const IOperand *Operand<T>::operator+(const IOperand &rhs) const {
 
 	val = val + this->_value;
 
+	stream.str("");
 	stream.clear();
 	stream << val;
 
@@ -106,6 +109,7 @@ const IOperand *Operand<T>::operator-(const IOperand &rhs) const {
 
 	val = val - this->_value;
 
+	stream.str("");
 	stream.clear();
 	stream << val;
 
@@ -131,6 +135,7 @@ const IOperand *Operand<T>::operator*(const IOperand &rhs) const {
 
 	val = val * this->_value;
 
+	stream.str("");
 	stream.clear();
 	stream << val;
 
@@ -154,8 +159,13 @@ const IOperand *Operand<T>::operator/(const IOperand &rhs) const {
 	stream.str(rhs.toString());
 	stream >> val;
 
+	if (this->_value == 0) {
+		throw std::logic_error("Exception division by 0");
+	}
+
 	val = val / this->_value;
 
+	stream.str("");
 	stream.clear();
 	stream << val;
 
@@ -180,8 +190,13 @@ const IOperand *Operand<T>::operator%(const IOperand &rhs) const {
 	stream.str(rhs.toString());
 	stream >> val;
 
+	if (this->_value == 0) {
+		throw std::logic_error("Exception division by 0");
+	}
+
 	val = std::fmod(val, this->_value);
 
+	stream.str("");
 	stream.clear();
 	stream << val;
 
@@ -194,27 +209,4 @@ const IOperand *Operand<T>::operator%(const IOperand &rhs) const {
 template <typename T>
 const std::string &Operand<T>::toString(void) const {
 	return this->_strValue;
-}
-
-template <typename T>
-Operand<T>::OverflowException::OverflowException(void) { }
-
-template <typename T>
-Operand<T>::OverflowException::~OverflowException(void) throw() { }
-
-template <typename T>
-const char *Operand<T>::OverflowException::what() const throw() {
-	return "Overflow Exception";
-}
-
-template <typename T>
-Operand<T>::OverflowException::OverflowException(const Operand::OverflowException &src) {
-	*this = src;
-}
-
-template <typename T>
-typename Operand<T>::OverflowException &Operand<T>::OverflowException::operator=(const Operand<T>::OverflowException &rhs) {
-	if (this != &rhs) {
-	}
-	return *this;
 }

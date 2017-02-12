@@ -27,9 +27,13 @@ void VirtualMachine::executeInstr(std::list<ParsedNode *> parsedList) {
 	for (std::list<ParsedNode*>::iterator it = parsedList.begin(); it != parsedList.end(); ++it) {
 		execMapType::iterator it2 = this->_execMap.find((*it)->getTkInstr());
 		if (it2 != this->_execMap.end()) {
-			(this->*it2->second)(it, parsedList);
-		} else
-			std::cerr << "ERROR1" << std::endl;
+			try {
+				(this->*it2->second)(it, parsedList);
+			} catch (std::exception & e) {
+				std::cerr << "Exception: " << e.what() << std::endl;
+				exit(1);
+			}
+		}
 	}
 }
 
@@ -65,14 +69,15 @@ void VirtualMachine::execInstrPush(std::list<ParsedNode *>::iterator &it, std::l
 
 	if (parsedList.size())
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrPop(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
-	this->_OpStack.pop_front();
+	if (this->_OpStack.size() > 0)
+		this->_OpStack.pop_front();
+	else
+		throw VirtualMachine::ValueExpectedException();
 	if (parsedList.size() && *it)
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrDump(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
@@ -81,20 +86,16 @@ void VirtualMachine::execInstrDump(std::list<ParsedNode *>::iterator &it, std::l
 
 	if (parsedList.size() && *it)
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrAssert(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
 	IOperand const * opTop = *this->_OpStack.begin();
 	std::string value = getValueOnly((*it)->getValue());
-	if (opTop->toString().compare(value) == 0)
-		std::cout << "OK" << std::endl;
-	else
-		std::cerr << "ERROR3" << std::endl;
+	if (opTop->toString().compare(value) != 0 || opTop->getType() != this->getEnumOperand((*it)->getTkValue()))
+		throw VirtualMachine::AssertException();
 
 	if (parsedList.size() && *it)
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrAdd(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
@@ -109,11 +110,10 @@ void VirtualMachine::execInstrAdd(std::list<ParsedNode *>::iterator &it, std::li
 		IOperand const * op = *opTop1 + *opTop2;
 		this->_OpStack.push_front(op);
 	} else
-		std::cerr << "ERROR4" << std::endl;
+		throw VirtualMachine::ValueExpectedException();
 
 	if (parsedList.size() && *it)
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrSub(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
@@ -128,12 +128,10 @@ void VirtualMachine::execInstrSub(std::list<ParsedNode *>::iterator &it, std::li
 		IOperand const * op = *opTop1 - *opTop2;
 		this->_OpStack.push_front(op);
 	} else
-		std::cerr << "ERROR4" << std::endl;
-
+		throw VirtualMachine::ValueExpectedException();
 
 	if (parsedList.size() && *it)
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrMul(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
@@ -148,11 +146,10 @@ void VirtualMachine::execInstrMul(std::list<ParsedNode *>::iterator &it, std::li
 		IOperand const * op = *opTop1 * *opTop2;
 		this->_OpStack.push_front(op);
 	} else
-		std::cerr << "ERROR4" << std::endl;
+		throw VirtualMachine::ValueExpectedException();
 
 	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrDiv(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
@@ -167,11 +164,10 @@ void VirtualMachine::execInstrDiv(std::list<ParsedNode *>::iterator &it, std::li
 		IOperand const * op = *opTop1 / *opTop2;
 		this->_OpStack.push_front(op);
 	} else
-		std::cerr << "ERROR4" << std::endl;
+		throw VirtualMachine::ValueExpectedException();
 
 	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrMod(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
@@ -186,11 +182,10 @@ void VirtualMachine::execInstrMod(std::list<ParsedNode *>::iterator &it, std::li
 		IOperand const * op = *opTop1 % *opTop2;
 		this->_OpStack.push_front(op);
 	} else
-		std::cerr << "ERROR4" << std::endl;
+		throw VirtualMachine::ValueExpectedException();
 
 	if (parsedList.size() && *it)
 		;
-	std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrPrint(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
@@ -200,23 +195,60 @@ void VirtualMachine::execInstrPrint(std::list<ParsedNode *>::iterator &it, std::
 		char c = std::stoi(opTop->toString());
 		std::cout << c;
 	} else
-		std::cerr << "ERROR2" << std::endl;
-
+		throw VirtualMachine::AssertException();
 
 	if (parsedList.size() && *it)
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::execInstrExit(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
 	exit(0);
 	if (parsedList.size() && *it)
 		;
-	//std::cout << "Exec: " << Node::convertEnumTk((*it)->getTkInstr()) << std::endl;
 }
 
 void VirtualMachine::printOpStack(void) const {
 	for(std::list<IOperand const *>::const_iterator it = this->_OpStack.begin(); it != this->_OpStack.end(); ++it) {
 		std::cout << (*it)->toString() << std::endl;
 	}
+}
+
+VirtualMachine::AssertException::AssertException(void) { }
+
+VirtualMachine::AssertException::~AssertException(void) throw() { }
+
+const char *VirtualMachine::AssertException::what() const throw() {
+	return "Value is not correct";
+}
+
+VirtualMachine::AssertException::AssertException(const VirtualMachine::AssertException &src) {
+	*this = src;
+}
+
+VirtualMachine::AssertException &VirtualMachine::AssertException::operator=(
+		const VirtualMachine::AssertException &rhs) {
+	if (this != &rhs) {
+	}
+	return *this;
+}
+
+VirtualMachine::ValueExpectedException::ValueExpectedException(void) { }
+
+VirtualMachine::ValueExpectedException::~ValueExpectedException(void) throw() { }
+
+VirtualMachine::ValueExpectedException::ValueExpectedException(
+		const VirtualMachine::ValueExpectedException &src) {
+	*this = src;
+}
+
+const char *VirtualMachine::ValueExpectedException::what() const throw() {
+	return "At least one value is missing";
+}
+
+VirtualMachine::ValueExpectedException &
+VirtualMachine::ValueExpectedException::operator=(
+		const VirtualMachine::ValueExpectedException &rhs) {
+	if (this != &rhs){
+	}
+	return *this;
 }

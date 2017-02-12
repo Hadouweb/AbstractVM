@@ -53,6 +53,26 @@ private:
 		{TK_INSTR_EXIT, 	&VirtualMachine::execInstrExit},
 	};
 
+	class AssertException : public std::exception {
+		public:
+			AssertException(void);
+			~AssertException(void) throw();
+			AssertException(AssertException const & src);
+			virtual const char* what() const throw();
+		private:
+			AssertException & operator=(AssertException const & rhs);
+	};
+
+	class ValueExpectedException : public std::exception {
+		public:
+			ValueExpectedException(void);
+			~ValueExpectedException(void) throw();
+			ValueExpectedException(ValueExpectedException const & src);
+			virtual const char* what() const throw();
+		private:
+			ValueExpectedException & operator=(ValueExpectedException const & rhs);
+	};
+
 	Factory _factory;
 	std::list<IOperand const *> _OpStack;
 };

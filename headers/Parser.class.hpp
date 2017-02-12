@@ -28,17 +28,6 @@ public:
 	std::list<ParsedNode*> getParsedNodeList(void) const;
 	void printError(void);
 
-	class SynthaxException : public std::exception {
-		public:
-			SynthaxException(void);
-			~SynthaxException(void) throw();
-			virtual const char* what() const throw();
-		private:
-			SynthaxException(SynthaxException const & src);
-			SynthaxException & operator=(SynthaxException const & rhs);
-	};
-
-
 private:
 	std::list<std::string> _errorStack;
 	bool isValue(Node *n);
@@ -74,6 +63,26 @@ private:
 		{TK_INSTR_EXIT, 	&Parser::parse_instr_exit},
 		{TK_COMMENT, 		&Parser::parse_comment},
     };
+
+	class SynthaxException : public std::exception {
+		public:
+			SynthaxException(void);
+			~SynthaxException(void) throw();
+			virtual const char* what() const throw();
+		private:
+			SynthaxException(SynthaxException const & src);
+			SynthaxException & operator=(SynthaxException const & rhs);
+	};
+
+	class ExitExpectedException : public std::exception {
+		public:
+			ExitExpectedException(void);
+			~ExitExpectedException(void) throw();
+			ExitExpectedException(ExitExpectedException const & src);
+			virtual const char* what() const throw();
+		private:
+			ExitExpectedException & operator=(ExitExpectedException const & rhs);
+	};
 
 	std::list<Error*> _errorList;
 	std::list<ParsedNode*> _parsedNodeList;
