@@ -74,16 +74,6 @@ private:
 			SynthaxException & operator=(SynthaxException const & rhs);
 	};
 
-	class ExitExpectedException : public std::exception {
-		public:
-			ExitExpectedException(void);
-			~ExitExpectedException(void) throw();
-			ExitExpectedException(ExitExpectedException const & src);
-			virtual const char* what() const throw();
-		private:
-			ExitExpectedException & operator=(ExitExpectedException const & rhs);
-	};
-
 	std::list<Error*> _errorList;
 	std::list<ParsedNode*> _parsedNodeList;
 

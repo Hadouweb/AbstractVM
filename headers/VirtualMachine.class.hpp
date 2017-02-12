@@ -75,6 +75,16 @@ private:
 			ValueExpectedException & operator=(ValueExpectedException const & rhs);
 	};
 
+	class ExitExpectedException : public std::exception {
+		public:
+			ExitExpectedException(void);
+			~ExitExpectedException(void) throw();
+			ExitExpectedException(ExitExpectedException const & src);
+			virtual const char* what() const throw();
+		private:
+			ExitExpectedException & operator=(ExitExpectedException const & rhs);
+	};
+
 	std::list<IOperand const *> _OpStack;
 };
 

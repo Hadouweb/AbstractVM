@@ -12,7 +12,12 @@ VirtualMachine &VirtualMachine::operator=(VirtualMachine const &rhs) {
 }
 
 VirtualMachine::VirtualMachine(std::list<ParsedNode *> parsedList) {
-	this->executeInstr(parsedList);
+	try {
+		this->executeInstr(parsedList);
+	} catch(std::exception & e ) {
+		std::cerr << e.what() << std::endl;
+		exit(1);
+	}
 }
 
 void VirtualMachine::executeInstr(std::list<ParsedNode *> parsedList) {
@@ -27,6 +32,7 @@ void VirtualMachine::executeInstr(std::list<ParsedNode *> parsedList) {
 			}
 		}
 	}
+	throw VirtualMachine::ExitExpectedException();
 }
 
 enum eOperandType VirtualMachine::getEnumOperand(enum e_tk token) {
@@ -243,4 +249,22 @@ VirtualMachine::ValueExpectedException::operator=(
 	if (this != &rhs){
 	}
 	return *this;
+}
+
+VirtualMachine::ExitExpectedException::ExitExpectedException(void) { }
+
+VirtualMachine::ExitExpectedException::ExitExpectedException(const VirtualMachine::ExitExpectedException &src) {
+	*this = src;
+}
+
+VirtualMachine::ExitExpectedException::~ExitExpectedException(void) throw() { }
+
+VirtualMachine::ExitExpectedException & VirtualMachine::ExitExpectedException::operator=(const VirtualMachine::ExitExpectedException &rhs) {
+	if (this != &rhs) {
+	}
+	return *this;
+}
+
+const char *VirtualMachine::ExitExpectedException::what() const throw() {
+	return "Exception: exit instruction is expected at the end";
 }

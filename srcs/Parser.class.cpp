@@ -1,14 +1,7 @@
 #include "Parser.class.hpp"
 
 Parser::Parser(std::list<Node *> nodeList) {
-	try {
-		this->makeParsing(nodeList);
-	} catch (std::exception & e) {
-		if (this->_errorList.size() > 0)
-			this->printError();
-		std::cerr << e.what() << std::endl;
-		exit(1);
-	}
+	this->makeParsing(nodeList);
 }
 
 Parser::Parser(Parser const &src) {
@@ -35,19 +28,11 @@ Error::Error(unsigned int col, unsigned int line, std::string type)
 }
 
 void Parser::makeParsing(std::list<Node *> nodeList) {
-	bool exit = false;
 	for (std::list<Node*>::iterator it = nodeList.begin(); it != nodeList.end(); ++it) {
 		instrMapType::iterator it2 = this->_instrCheckerMap.find((*it)->getToken());
 		if (it2 != this->_instrCheckerMap.end()) {
-			if ((*it)->getToken() == TK_INSTR_EXIT) {
-				exit = true;
-				break ;
-			}
 			(this->*it2->second)(it, nodeList);
 		}
-	}
-	if (!exit) {
-		throw Parser::ExitExpectedException();
 	}
 }
 
@@ -77,24 +62,6 @@ const char *Parser::SynthaxException::what() const throw() {
 	return "Exception: Synthax Error";
 }
 
-Parser::ExitExpectedException::ExitExpectedException(void) { }
-
-Parser::ExitExpectedException::ExitExpectedException(const Parser::ExitExpectedException &src) {
-	*this = src;
-}
-
-Parser::ExitExpectedException::~ExitExpectedException(void) throw() { }
-
-Parser::ExitExpectedException & Parser::ExitExpectedException::operator=(const Parser::ExitExpectedException &rhs) {
-	if (this != &rhs) {
-	}
-	return *this;
-}
-
-const char *Parser::ExitExpectedException::what() const throw() {
-	return "Exception: exit instruction is expected at the end";
-}
-
 void Parser::printError(void) {
 	for (std::list<Error *>::iterator it = this->_errorList.begin(); it != this->_errorList.end(); ++it) {
 		Parser::SynthaxException e;
@@ -121,6 +88,10 @@ bool Parser::isValue(Node *n) {
 }
 
 bool Parser::endLine(std::list<Node *>::iterator &it, std::list<Node *> nodeList) {
+	if (*it == *nodeList.end()) {
+		it--;
+		return true;
+	}
 	while (it != nodeList.end() && (*it)->getToken() == TK_WHITE_SPACE)
 		it++;
 	if (it != nodeList.end()) {
@@ -250,6 +221,7 @@ void Parser::parse_instr_print(std::list<Node*>::iterator & it, std::list<Node *
 
 void Parser::parse_instr_exit(std::list<Node*>::iterator & it, std::list<Node *> nodeList) {
 	this->_parsedNodeList.push_back(new ParsedNode(TK_INSTR_EXIT, NB_TK, ""));
+	it++;
 	this->endLine(it, nodeList);
 }
 

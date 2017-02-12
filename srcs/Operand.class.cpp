@@ -14,7 +14,7 @@ Operand<T>::Operand(std::string pValue, enum eOperandType type)
 
 template <typename T>
 Operand<T>::Operand(Operand const &src)
-	: _strValue(src._strValue), _type(src._type), _precision(src._precision) {
+	: _strValue(src._strValue), _type(src._type) {
 	*this = src;
 }
 
@@ -46,7 +46,6 @@ void Operand<T>::overflowTest(double val) {
 
 template <typename T>
 void Operand<T>::convertType(void) {
-	this->_precision = sizeof(T);
 	double val = std::atof(this->_strValue.c_str());
 
 	try {
@@ -59,7 +58,7 @@ void Operand<T>::convertType(void) {
 
 template <typename T>
 int Operand<T>::getPrecision(void) const {
-	return this->_precision;
+	return static_cast<int>(this->getType());
 }
 
 template <typename T>

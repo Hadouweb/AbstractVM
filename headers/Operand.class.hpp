@@ -32,7 +32,6 @@ public:
 private:
 	std::string _strValue;
 	eOperandType _type;
-	int _precision;
 	T _value;
 
 	Operand(void);
