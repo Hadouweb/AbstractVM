@@ -174,7 +174,8 @@ void VirtualMachine::execInstrMod(std::list<ParsedNode *>::iterator &it) {
 
 void VirtualMachine::execInstrPrint(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop = *this->_OpStack.begin();
-
+	if (opTop == NULL)
+		throw VirtualMachine::ValueExpectedException();
 	if (opTop->getType() == INT_8) {
 		char c = std::stoi(opTop->toString());
 		std::cout << c;

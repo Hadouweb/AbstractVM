@@ -28,7 +28,7 @@ Operand<T> &Operand<T>::operator=(Operand const &rhs) {
 
 template <typename T>
 void Operand<T>::overflowTest(double val) {
-	double min = std::numeric_limits<T>::min();
+	double min = std::numeric_limits<T>::lowest();
 	double max = std::numeric_limits<T>::max();
 
 	if (val > max)
