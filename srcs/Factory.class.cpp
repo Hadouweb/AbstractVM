@@ -1,17 +1,13 @@
 #include "Factory.class.hpp"
 #include "Operand.class.cpp"
 
-Factory::Factory(void) {
-	// TODO
-}
+Factory::Factory(void) { }
 
-Factory::~Factory(void) {
-	// TODO
-}
+Factory::~Factory(void) { }
 
 const IOperand * Factory::createOperand(eOperandType type, const std::string &value) const {
-// int index = static_cast<int>(type);
-	return (this->*createFuncArray[type])(value);
+	int index = static_cast<int>(type);
+	return (this->*createFuncArray[index])(value);
 }
 
 const IOperand *Factory::createInt8(const std::string &value) const {

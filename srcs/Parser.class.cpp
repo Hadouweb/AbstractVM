@@ -17,7 +17,6 @@ Parser::~Parser(void) {
 
 Parser &Parser::operator=(Parser const &rhs) {
 	if (this != &rhs) {
-		// TODO
 	}
 	return *this;
 }
@@ -78,13 +77,11 @@ void Parser::pushError(unsigned int col, unsigned int line, std::string type) {
 }
 
 bool Parser::isValue(Node *n) {
-	if (n->getToken() == TK_VALUE_DOUBLE ||
-		n->getToken() == TK_VALUE_FLOAT ||
-		n->getToken() == TK_VALUE_INT_8 ||
-		n->getToken() == TK_VALUE_INT_16 ||
-		n->getToken() == TK_VALUE_INT_32)
-		return true;
-	return false;
+	return (n->getToken() == TK_VALUE_DOUBLE ||
+			n->getToken() == TK_VALUE_FLOAT ||
+			n->getToken() == TK_VALUE_INT_8 ||
+			n->getToken() == TK_VALUE_INT_16 ||
+			n->getToken() == TK_VALUE_INT_32);
 }
 
 bool Parser::endLine(std::list<Node *>::iterator &it, std::list<Node *> nodeList) {

@@ -2,9 +2,7 @@
 #include "VirtualMachine.class.hpp"
 
 template<typename T>
-Operand<T>::Operand(void) {
-
-}
+Operand<T>::Operand(void) { }
 
 template<typename T>
 Operand<T>::Operand(std::string pValue, enum eOperandType type)
@@ -19,14 +17,11 @@ Operand<T>::Operand(Operand const &src)
 }
 
 template <typename T>
-Operand<T>::~Operand(void) {
-	// TODO
-}
+Operand<T>::~Operand(void) { }
 
 template <typename T>
 Operand<T> &Operand<T>::operator=(Operand const &rhs) {
 	if (this != &rhs) {
-		// TODO
 	}
 	return *this;
 }

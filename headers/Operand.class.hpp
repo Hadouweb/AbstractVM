@@ -3,22 +3,18 @@
 
 #include <string>
 #include <typeinfo>
-#include "IOperand.class.hpp"
-#include <climits>
-#include <list>
-#include "Factory.class.hpp"
 #include <sstream>
 #include <cmath>
+#include <climits>
+#include <list>
+#include "IOperand.class.hpp"
+#include "Factory.class.hpp"
 
 template <typename T>
 class Operand : public IOperand {
 public:
 	Operand(std::string pValue, enum eOperandType type);
-    Operand(Operand const & src);
-
     ~Operand(void);
-
-    Operand & operator=(Operand const & rhs);
 
 	virtual int getPrecision(void) const override;
 	virtual eOperandType getType(void) const override;
@@ -30,11 +26,13 @@ public:
 	virtual const std::string &toString(void) const override;
 
 private:
-	std::string _strValue;
-	eOperandType _type;
+	const std::string _strValue;
+	const eOperandType _type;
 	T _value;
 
 	Operand(void);
+	Operand(Operand const & src);
+	Operand & operator=(Operand const & rhs);
 	void convertType(void);
 	void overflowTest(double val);
 };

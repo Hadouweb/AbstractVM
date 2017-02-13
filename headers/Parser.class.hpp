@@ -18,11 +18,9 @@ struct Error {
 class Parser {
 public:
     Parser(std::list<Node *> nodeList);
-    Parser(Parser const & src);
 
     ~Parser(void);
 
-    Parser & operator=(Parser const & rhs);
     void makeParsing(std::list<Node *> nodeList);
 	std::list<Error*> getErrorList(void) const;
 	std::list<ParsedNode*> getParsedNodeList(void) const;
@@ -30,6 +28,8 @@ public:
 
 private:
 	std::list<std::string> _errorStack;
+	Parser(Parser const & src);
+	Parser & operator=(Parser const & rhs);
 	bool isValue(Node *n);
 	bool endLine(std::list<Node*>::iterator & it, std::list<Node *> nodeList);
 	void pushError(unsigned int col, unsigned int line, std::string type);

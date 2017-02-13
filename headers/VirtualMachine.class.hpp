@@ -13,33 +13,31 @@ class Factory;
 class VirtualMachine {
 public:
     VirtualMachine(std::list<ParsedNode*> parsedList);
+	~VirtualMachine(void);
 
-    virtual ~VirtualMachine(void);
-
-    VirtualMachine & operator=(VirtualMachine const & rhs);
 	void printOpStack(void) const;
-
 
 private:
 	VirtualMachine(void);
 	VirtualMachine(VirtualMachine const & src);
+	VirtualMachine & operator=(VirtualMachine const & rhs);
 	void executeInstr(std::list<ParsedNode*> parsedList);
 	std::string getValueOnly(std::string str);
 	enum eOperandType getEnumOperand(enum e_tk token);
 
-	void execInstrPush(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrPop(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrDump(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrAssert(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrAdd(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrSub(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrMul(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrDiv(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrMod(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrPrint(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
-	void execInstrExit(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *> parsedList);
+	void execInstrPush(std::list<ParsedNode*>::iterator & it);
+	void execInstrPop(std::list<ParsedNode*>::iterator & it);
+	void execInstrDump(std::list<ParsedNode*>::iterator & it);
+	void execInstrAssert(std::list<ParsedNode*>::iterator & it);
+	void execInstrAdd(std::list<ParsedNode*>::iterator & it);
+	void execInstrSub(std::list<ParsedNode*>::iterator & it);
+	void execInstrMul(std::list<ParsedNode*>::iterator & it);
+	void execInstrDiv(std::list<ParsedNode*>::iterator & it);
+	void execInstrMod(std::list<ParsedNode*>::iterator & it);
+	void execInstrPrint(std::list<ParsedNode*>::iterator & it);
+	void execInstrExit(std::list<ParsedNode*>::iterator & it);
 
-	typedef std::map<e_tk, void (VirtualMachine::*)(std::list<ParsedNode*>::iterator & it, std::list<ParsedNode *>) > execMapType;
+	typedef std::map<e_tk, void (VirtualMachine::*)(std::list<ParsedNode*>::iterator & it) > execMapType;
 
 	execMapType _execMap = {
 		{TK_INSTR_PUSH, 	&VirtualMachine::execInstrPush},

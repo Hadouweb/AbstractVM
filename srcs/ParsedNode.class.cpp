@@ -7,7 +7,7 @@ ParsedNode::ParsedNode(e_tk pTkInstr, e_tk pTkValue, std::string val)
 
 ParsedNode::ParsedNode(void)
 	: _tkInstr(NB_TK), _tkValue(NB_TK), _value("") {
-	// TODO
+
 }
 
 ParsedNode::ParsedNode(const ParsedNode &src)
@@ -15,13 +15,10 @@ ParsedNode::ParsedNode(const ParsedNode &src)
 	*this = src;
 }
 
-ParsedNode::~ParsedNode(void) {
-	// TODO
-}
+ParsedNode::~ParsedNode(void) { }
 
 ParsedNode &ParsedNode::operator=(const ParsedNode &rhs) {
 	if (this != &rhs) {
-		// TODO
 	}
 	return *this;
 }

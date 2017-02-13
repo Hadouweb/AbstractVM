@@ -1,5 +1,5 @@
 #include <iostream>
-#include <VirtualMachine.class.hpp>
+#include "VirtualMachine.class.hpp"
 #include "Lexer.class.hpp"
 #include "Parser.class.hpp"
 

@@ -2,21 +2,19 @@
 
 Lexer::Lexer(void)
 	: _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _state(NB_TK), _chunk(NB_TK) {
-	// TODO ERROR IFS
-	this->forEachChar(std::cin);
 	this->_modeCin = true;
+	this->forEachChar(std::cin);
 }
 
 Lexer::Lexer(std::string fileName)
 	: _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _state(NB_TK), _chunk(NB_TK) {
-	// TODO ERROR IFS
 	std::ifstream ifs(fileName);
 	if (!ifs.good()) {
 		std::cerr << "File not found" << std::endl;
 		exit(1);
 	}
-	this->forEachChar(ifs);
 	this->_modeCin = false;
+	this->forEachChar(ifs);
 }
 
 Lexer::Lexer(const Lexer &src) {
@@ -24,7 +22,6 @@ Lexer::Lexer(const Lexer &src) {
 }
 
 Lexer::~Lexer(void) {
-	// TODO
 	for (std::list<Node*>::iterator it = this->_nodeList.begin(); it != this->_nodeList.end(); ++it) {
 		delete *it;
 	}

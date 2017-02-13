@@ -1,12 +1,9 @@
 #include "VirtualMachine.class.hpp"
 
-VirtualMachine::~VirtualMachine(void) {
-	// TODO
-}
+VirtualMachine::~VirtualMachine(void) { }
 
 VirtualMachine &VirtualMachine::operator=(VirtualMachine const &rhs) {
 	if (this != &rhs) {
-		// TODO
 	}
 	return *this;
 }
@@ -25,7 +22,7 @@ void VirtualMachine::executeInstr(std::list<ParsedNode *> parsedList) {
 		execMapType::iterator it2 = this->_execMap.find((*it)->getTkInstr());
 		if (it2 != this->_execMap.end()) {
 			try {
-				(this->*it2->second)(it, parsedList);
+				(this->*it2->second)(it);
 			} catch (std::exception & e) {
 				std::cerr << "Exception: " << e.what() << std::endl;
 				exit(1);
@@ -59,44 +56,38 @@ std::string VirtualMachine::getValueOnly(std::string str) {
 	return val;
 }
 
-void VirtualMachine::execInstrPush(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrPush(std::list<ParsedNode *>::iterator &it) {
 	std::string value = getValueOnly((*it)->getValue());
 	const IOperand * op = Factory::getInstance()->createOperand(this->getEnumOperand((*it)->getTkValue()), value);
 
 	this->_OpStack.push_front(op);
-
-	if (parsedList.size())
-		;
 }
 
-void VirtualMachine::execInstrPop(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrPop(std::list<ParsedNode *>::iterator &it) {
 	if (this->_OpStack.size() > 0)
 		this->_OpStack.pop_front();
 	else
 		throw VirtualMachine::ValueExpectedException();
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrDump(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
-
+void VirtualMachine::execInstrDump(std::list<ParsedNode *>::iterator &it) {
 	this->printOpStack();
-
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrAssert(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrAssert(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop = *this->_OpStack.begin();
 	std::string value = getValueOnly((*it)->getValue());
 	if (opTop->toString().compare(value) != 0 || opTop->getType() != this->getEnumOperand((*it)->getTkValue()))
 		throw VirtualMachine::AssertException();
-
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrAdd(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrAdd(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop1 = *this->_OpStack.begin();
 	if (opTop1)
 		this->_OpStack.pop_front();
@@ -109,12 +100,11 @@ void VirtualMachine::execInstrAdd(std::list<ParsedNode *>::iterator &it, std::li
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
-
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrSub(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrSub(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop1 = *this->_OpStack.begin();
 	if (opTop1)
 		this->_OpStack.pop_front();
@@ -127,12 +117,11 @@ void VirtualMachine::execInstrSub(std::list<ParsedNode *>::iterator &it, std::li
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
-
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrMul(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrMul(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop1 = *this->_OpStack.begin();
 	if (opTop1)
 		this->_OpStack.pop_front();
@@ -145,12 +134,11 @@ void VirtualMachine::execInstrMul(std::list<ParsedNode *>::iterator &it, std::li
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
-
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrDiv(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrDiv(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop1 = *this->_OpStack.begin();
 	if (opTop1)
 		this->_OpStack.pop_front();
@@ -163,12 +151,11 @@ void VirtualMachine::execInstrDiv(std::list<ParsedNode *>::iterator &it, std::li
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
-
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrMod(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrMod(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop1 = *this->_OpStack.begin();
 	if (opTop1)
 		this->_OpStack.pop_front();
@@ -181,12 +168,11 @@ void VirtualMachine::execInstrMod(std::list<ParsedNode *>::iterator &it, std::li
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
-
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrPrint(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrPrint(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop = *this->_OpStack.begin();
 
 	if (opTop->getType() == INT_8) {
@@ -194,14 +180,13 @@ void VirtualMachine::execInstrPrint(std::list<ParsedNode *>::iterator &it, std::
 		std::cout << c;
 	} else
 		throw VirtualMachine::AssertException();
-
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 
-void VirtualMachine::execInstrExit(std::list<ParsedNode *>::iterator &it, std::list<ParsedNode *> parsedList) {
+void VirtualMachine::execInstrExit(std::list<ParsedNode *>::iterator &it) {
 	exit(0);
-	if (parsedList.size() && *it)
+	if (*it)
 		;
 }
 

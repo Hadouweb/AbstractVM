@@ -11,8 +11,7 @@
 
 class Node;
 
-enum	e_sts
-{
+enum	e_sts {
 	STS_ACCEPT,
 	STS_REJECT,
 	STS_HUNGRY,
@@ -27,11 +26,8 @@ class Lexer {
 public:
     Lexer(void);
     Lexer(std::string fileName);
-    Lexer(Lexer const & src);
 
     ~Lexer(void);
-
-    Lexer & operator=(Lexer const & rhs);
 	std::list<Node*> getNodeList(void) const;
 	std::list<Node*> getErrorList(void) const;
 	void printError(void);
@@ -39,6 +35,8 @@ public:
 	static std::string convertStsEnum(enum e_sts sts);
 
 private:
+	Lexer(Lexer const & src);
+	Lexer & operator=(Lexer const & rhs);
 	void forEachChar(std::istream & is);
 	void updateStatus(void);
 	enum e_tk pushToken(unsigned int line, unsigned int col);
@@ -95,13 +93,13 @@ private:
 	};
 
 	class UnknownTokenException : public std::exception {
-	public:
-		UnknownTokenException(void);
-		~UnknownTokenException(void) throw();
-		virtual const char* what() const throw();
-	private:
-		UnknownTokenException(UnknownTokenException const & src);
-		UnknownTokenException & operator=(UnknownTokenException const & rhs);
+		public:
+			UnknownTokenException(void);
+			~UnknownTokenException(void) throw();
+			virtual const char* what() const throw();
+		private:
+			UnknownTokenException(UnknownTokenException const & src);
+			UnknownTokenException & operator=(UnknownTokenException const & rhs);
 	};
 
 	void printStatus(void);
@@ -112,7 +110,6 @@ private:
 	bool _modeCin;
 };
 
-std::ostream & operator<<(std::ostream & os, Status & s);
 std::ostream & operator<<(std::ostream & os, Status & s);
 
 #endif

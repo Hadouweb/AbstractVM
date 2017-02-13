@@ -1,7 +1,6 @@
 #ifndef NODE_CLASS_HPP
 # define NODE_CLASS_HPP
 
-
 #include <iomanip>
 
 enum e_tk {
@@ -32,11 +31,7 @@ enum e_tk {
 class Node {
 public:
 	Node(e_tk tk, std::string val, unsigned int numLine, unsigned int numCol);
-    Node(Node const & src);
-
     ~Node(void);
-
-    Node & operator=(Node const & rhs);
 
 	static std::string convertEnumTk(e_tk e);
 
@@ -45,10 +40,10 @@ public:
 	unsigned int getNumCol() const;
 	std::string getValue() const;
 
-	void setValue(std::string _valueDouble);
-
 private:
 	Node(void);
+	Node & operator=(Node const & rhs);
+	Node(Node const & src);
 	e_tk _token;
 	std::string _value;
 	unsigned int _numLine;

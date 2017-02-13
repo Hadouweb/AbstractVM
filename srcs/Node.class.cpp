@@ -1,8 +1,6 @@
 #include "Node.class.hpp"
 
-Node::Node(void) {
-	// TODO
-}
+Node::Node(void) { }
 
 Node::Node(e_tk tk, std::string val, unsigned int numLine, unsigned int numCol)
 	: _token(tk), _value(val), _numLine(numLine), _numCol(numCol) {
@@ -13,13 +11,10 @@ Node::Node(Node const &src) {
 	*this = src;
 }
 
-Node::~Node(void) {
-	// TODO
-}
+Node::~Node(void) { }
 
 Node &Node::operator=(Node const &rhs) {
 	if (this != &rhs) {
-		// TODO
 	}
 	return *this;
 }
@@ -86,10 +81,6 @@ unsigned int Node::getNumCol() const {
 
 std::string Node::getValue() const {
 	return this->_value;
-}
-
-void Node::setValue(std::string v) {
-	this->_value = v;
 }
 
 std::ostream &operator<<(std::ostream &os, Node &n) {
