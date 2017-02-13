@@ -39,7 +39,7 @@ int		main(int ac, char **av) {
 	// DEBUG
 	/*
 	for (std::list<ParsedNode*>::iterator it = parsedListParser.begin(); it != parsedListParser.end(); ++it) {
-		//std::cout << *(*it);
+		std::cout << *(*it);
 	}
 	*/
 

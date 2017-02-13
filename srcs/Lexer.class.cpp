@@ -30,7 +30,6 @@ Lexer::~Lexer(void) {
 
 Lexer &Lexer::operator=(const Lexer &rhs) {
 	if (this != &rhs) {
-		// TODO
 	}
 	return *this;
 }

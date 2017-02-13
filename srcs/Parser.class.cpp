@@ -103,7 +103,6 @@ bool Parser::endLine(std::list<Node *>::iterator &it, std::list<Node *> nodeList
 }
 
 void Parser::parse_instr_push(std::list<Node*>::iterator & it, std::list<Node *> nodeList) {
-	std::map<e_tk, void (Parser::*)(Node*)>::iterator itType;
 	unsigned int col = (*it)->getNumCol();
 	unsigned int line = (*it)->getNumLine();
 	bool valid = false;
@@ -148,7 +147,6 @@ void Parser::parse_instr_dump(std::list<Node*>::iterator & it, std::list<Node *>
 }
 
 void Parser::parse_instr_assert(std::list<Node*>::iterator & it, std::list<Node *> nodeList) {
-	std::map<e_tk, void (Parser::*)(Node*)>::iterator itType;
 	unsigned int col = (*it)->getNumCol();
 	unsigned int line = (*it)->getNumLine();
 	bool valid = false;
