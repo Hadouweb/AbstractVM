@@ -27,6 +27,7 @@ int		main(int ac, char **av) {
 	*/
 
 	Parser p(nodeList);
+	//delete l;
 
 	std::list<Error*> errorListParser = p.getErrorList();
 	std::list<ParsedNode*> parsedListParser = p.getParsedNodeList();
@@ -44,6 +45,7 @@ int		main(int ac, char **av) {
 	*/
 
 	VirtualMachine VM(parsedListParser);
-
+	while(42)
+		;
 	return 0;
 }

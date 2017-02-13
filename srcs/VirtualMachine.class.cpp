@@ -1,6 +1,11 @@
 #include "VirtualMachine.class.hpp"
 
-VirtualMachine::~VirtualMachine(void) { }
+VirtualMachine::~VirtualMachine(void) {
+	for(std::list<IOperand const *>::const_iterator it = this->_OpStack.begin(); it != this->_OpStack.end(); ++it) {
+		delete *it;
+	}
+	this->_OpStack.clear();
+}
 
 VirtualMachine &VirtualMachine::operator=(VirtualMachine const &rhs) {
 	if (this != &rhs) {
@@ -64,8 +69,11 @@ void VirtualMachine::execInstrPush(std::list<ParsedNode *>::iterator &it) {
 }
 
 void VirtualMachine::execInstrPop(std::list<ParsedNode *>::iterator &it) {
-	if (this->_OpStack.size() > 0)
+	if (this->_OpStack.size() > 0) {
+		IOperand const * opTop = *this->_OpStack.begin();
 		this->_OpStack.pop_front();
+		delete opTop;
+	}
 	else
 		throw VirtualMachine::ValueExpectedException();
 	if (*it)
@@ -100,6 +108,8 @@ void VirtualMachine::execInstrAdd(std::list<ParsedNode *>::iterator &it) {
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
+	delete opTop1;
+	delete opTop2;
 	if (*it)
 		;
 }
@@ -117,6 +127,8 @@ void VirtualMachine::execInstrSub(std::list<ParsedNode *>::iterator &it) {
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
+	delete opTop1;
+	delete opTop2;
 	if (*it)
 		;
 }
@@ -134,6 +146,8 @@ void VirtualMachine::execInstrMul(std::list<ParsedNode *>::iterator &it) {
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
+	delete opTop1;
+	delete opTop2;
 	if (*it)
 		;
 }
@@ -151,6 +165,8 @@ void VirtualMachine::execInstrDiv(std::list<ParsedNode *>::iterator &it) {
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
+	delete opTop1;
+	delete opTop2;
 	if (*it)
 		;
 }
@@ -168,6 +184,8 @@ void VirtualMachine::execInstrMod(std::list<ParsedNode *>::iterator &it) {
 		this->_OpStack.push_front(op);
 	} else
 		throw VirtualMachine::ValueExpectedException();
+	delete opTop1;
+	delete opTop2;
 	if (*it)
 		;
 }

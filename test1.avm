@@ -1,8 +1,8 @@
 push int32(42)
 push int32(33)
-add ;poney 75
+add ;poney
 push float(44.55)
-mul ; 3341.25
+mul
 push double(42.42)
 ;commentaire de ouf
 push int32(42)
