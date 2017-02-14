@@ -62,6 +62,19 @@ eOperandType Operand<T>::getType(void) const {
 }
 
 template <typename T>
+bool Operand<T>::needInt(eOperandType aType, eOperandType bType) const {
+	int aIntType = static_cast<int>(aType);
+	int bIntType = static_cast<int>(bType);
+	int cIntType = (aIntType > bIntType) ? aIntType : bIntType;
+	int compType = static_cast<int>(FLOAT);
+
+	if (cIntType >= compType)
+		return false;
+	else
+		return true;
+}
+
+template <typename T>
 const IOperand *Operand<T>::operator+(const IOperand &rhs) const {
 	eOperandType mostAccurate;
 	std::stringstream stream;
@@ -79,7 +92,10 @@ const IOperand *Operand<T>::operator+(const IOperand &rhs) const {
 
 	stream.str("");
 	stream.clear();
-	stream << val;
+	if (this->needInt(this->getType(), rhs.getType()))
+		stream << static_cast<int>(val);
+	else
+		stream << val;
 
 	Factory * f = Factory::getInstance();
 	const IOperand * io = f->createOperand(mostAccurate, stream.str());
@@ -105,7 +121,10 @@ const IOperand *Operand<T>::operator-(const IOperand &rhs) const {
 
 	stream.str("");
 	stream.clear();
-	stream << val;
+	if (this->needInt(this->getType(), rhs.getType()))
+		stream << static_cast<int>(val);
+	else
+		stream << val;
 
 	Factory * f = Factory::getInstance();
 	const IOperand * io = f->createOperand(mostAccurate, stream.str());
@@ -131,7 +150,10 @@ const IOperand *Operand<T>::operator*(const IOperand &rhs) const {
 
 	stream.str("");
 	stream.clear();
-	stream << val;
+	if (this->needInt(this->getType(), rhs.getType()))
+		stream << static_cast<int>(val);
+	else
+		stream << val;
 
 	Factory * f = Factory::getInstance();
 	const IOperand * io = f->createOperand(mostAccurate, stream.str());
@@ -161,7 +183,10 @@ const IOperand *Operand<T>::operator/(const IOperand &rhs) const {
 
 	stream.str("");
 	stream.clear();
-	stream << val;
+	if (this->needInt(this->getType(), rhs.getType()))
+		stream << static_cast<int>(val);
+	else
+		stream << val;
 
 	Factory * f = Factory::getInstance();
 	const IOperand * io = f->createOperand(mostAccurate, stream.str());
@@ -192,7 +217,10 @@ const IOperand *Operand<T>::operator%(const IOperand &rhs) const {
 
 	stream.str("");
 	stream.clear();
-	stream << val;
+	if (this->needInt(this->getType(), rhs.getType()))
+		stream << static_cast<int>(val);
+	else
+		stream << val;
 
 	Factory * f = Factory::getInstance();
 	const IOperand * io = f->createOperand(mostAccurate, stream.str());

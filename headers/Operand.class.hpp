@@ -35,6 +35,7 @@ private:
 	Operand & operator=(Operand const & rhs);
 	void convertType(void);
 	void overflowTest(double val);
+	bool needInt(eOperandType aType, eOperandType bType) const;
 };
 
 #endif

@@ -1,1 +1,5 @@
-push;;
+push double(10.0)
+push int8(6)
+add
+dump
+exit
