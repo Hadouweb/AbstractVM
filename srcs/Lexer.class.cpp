@@ -3,7 +3,7 @@
 Lexer::Lexer(void)
 	: _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _state(NB_TK), _chunk(NB_TK) {
 	this->_modeCin = true;
-	this->forEachChar(std::cin);
+	this->forEachLine(std::cin);
 }
 
 Lexer::Lexer(std::string fileName)
@@ -14,7 +14,7 @@ Lexer::Lexer(std::string fileName)
 		exit(1);
 	}
 	this->_modeCin = false;
-	this->forEachChar(ifs);
+	this->forEachLine(ifs);
 }
 
 Lexer::Lexer(const Lexer &src) {
@@ -366,59 +366,69 @@ e_tk Lexer::getTokenFound(void) {
 enum e_tk Lexer::pushToken(unsigned int line, unsigned int col) {
 	e_tk token = getTokenFound();
 	int index = static_cast<int>(token);
-	if (token != NB_TK && token != TK_DSEMI_COL)
+	if (token != NB_TK && token != TK_DSEMI_COL && token != TK_COMMENT)
 		this->_nodeList.push_back(new Node(token, this->_chunk[index], line, col));
 	return token;
 }
 
 void Lexer::pushError(unsigned int line, unsigned int col) {
 	e_tk token = getTokenFound();
-	//std::cout << "|" << this->_chunk[index] << "|" << std::endl;
 	this->_errorList.push_back(new Node(token, "", line, col));
 }
 
-void Lexer::forEachChar(std::istream & is) {
+void Lexer::forEachLine(std::istream & is) {
+	std::string line;
+	unsigned int numLine = 0;
+
+	while (getline(is, line)) {
+		if (this->forEachChar(line, numLine) == true)
+			break ;
+		this->_nodeList.push_back(new Node(TK_END_LINE, "", numLine, line.length()));
+		numLine++;
+	}
+}
+
+bool Lexer::forEachChar(std::string & line, unsigned int numLine) {
 	unsigned int i = 0;
-	unsigned int col = 0;
-	unsigned int line = 0;
+	unsigned int numCol = 0;
 	unsigned int limit = 0;
-	char c = is.get();
+	std::string::iterator it = line.begin();
 
-	//this->printStatus();
-
-	while(c >= 0) {
-		if (matchToken(c)) {
+	while (it != line.end()) {
+		if (matchToken(*it)) {
 			this->updateStatus();
-			c = is.get();
+			it++;
 			i++;
-			limit = 0;
 		} else {
-			e_tk token = this->pushToken(line, col);
+			e_tk token = this->pushToken(numLine, numCol);
 			if (token == NB_TK) {
-				this->pushError(line, col);
-				if (matchToken(c)) {
+				this->pushError(numLine, numCol);
+				if (matchToken(*it)) {
 					limit++;
 					this->updateStatus();
 				} else {
-					c = is.get();
+					it++;
 					i++;
 				}
 			}
 			if (token == TK_DSEMI_COL || limit > 1)
-				break ;
+				return true ;
 			if (token == TK_COMMENT) {
-				while((c = is.get()) >= 0 && c != '\n') {
-					i++;
-				}
+				return false ;
 			}
 			if (token == TK_END_LINE) {
-				line++;
 				i = 0;
 			}
-			col = i;
+			numCol = i;
 		}
 	}
-	this->pushToken(line, col);
+
+	if (matchToken(*it))
+		this->updateStatus();
+	e_tk token = this->pushToken(numLine, numCol);
+	if (token == TK_DSEMI_COL)
+		return true;
+	return false;
 }
 
 Lexer::UnknownTokenException::UnknownTokenException(void) { }

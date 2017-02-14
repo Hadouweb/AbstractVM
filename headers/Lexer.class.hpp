@@ -37,7 +37,8 @@ public:
 private:
 	Lexer(Lexer const & src);
 	Lexer & operator=(Lexer const & rhs);
-	void forEachChar(std::istream & is);
+	void forEachLine(std::istream & is);
+	bool forEachChar(std::string & line, unsigned int numLine);
 	void updateStatus(void);
 	enum e_tk pushToken(unsigned int line, unsigned int col);
 	void pushError(unsigned int line, unsigned int col);
