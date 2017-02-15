@@ -62,8 +62,6 @@ void Parser::parseInstrPush(void) {
 
 	it++;
 	if (it != this->_nodeList.end()) {
-		col = (*it)->getNumCol();
-		line = (*it)->getNumLine();
 		if ((*it)->getToken() == TK_WHITE_SPACE)
 			it++;
 		else
@@ -72,6 +70,8 @@ void Parser::parseInstrPush(void) {
 		this->pushError(col, line, "space expected");
 
 	if (it != this->_nodeList.end()) {
+		col = (*it)->getNumCol();
+		line = (*it)->getNumLine();
 		if (this->isValue(*it)) {
 			valid = true;
 		} else
@@ -87,18 +87,6 @@ void Parser::parseInstrPush(void) {
 		this->pushError(col, line, "value type expected");
 }
 
-void Parser::parseInstrPop(void) {
-	this->_parsedNodeList.push_back(new ParsedNode(TK_INSTR_POP, NB_TK, ""));
-	this->_currentIt++;
-	this->endLine();
-}
-
-void Parser::parseInstrDump(void) {
-	this->_parsedNodeList.push_back(new ParsedNode(TK_INSTR_DUMP, NB_TK, ""));
-	this->_currentIt++;
-	this->endLine();
-}
-
 void Parser::parseInstrAssert(void) {
 	std::list<Node*>::iterator & it = this->_currentIt;
 
@@ -107,7 +95,6 @@ void Parser::parseInstrAssert(void) {
 	bool valid = false;
 
 	it++;
-
 	if (it != this->_nodeList.end()) {
 		if ((*it)->getToken() == TK_WHITE_SPACE)
 			it++;
@@ -116,10 +103,9 @@ void Parser::parseInstrAssert(void) {
 	} else
 		this->pushError(col, line, "space expected");
 
-	col = (*it)->getNumCol();
-	line = (*it)->getNumLine();
-
 	if (it != this->_nodeList.end()) {
+		col = (*it)->getNumCol();
+		line = (*it)->getNumLine();
 		if (this->isValue(*it)) {
 			valid = true;
 		} else
@@ -133,6 +119,18 @@ void Parser::parseInstrAssert(void) {
 		this->endLine();
 	} else
 		this->pushError(col, line, "value type expected");
+}
+
+void Parser::parseInstrPop(void) {
+	this->_parsedNodeList.push_back(new ParsedNode(TK_INSTR_POP, NB_TK, ""));
+	this->_currentIt++;
+	this->endLine();
+}
+
+void Parser::parseInstrDump(void) {
+	this->_parsedNodeList.push_back(new ParsedNode(TK_INSTR_DUMP, NB_TK, ""));
+	this->_currentIt++;
+	this->endLine();
 }
 
 void Parser::parseInstrAdd(void) {

@@ -391,27 +391,26 @@ void Lexer::forEachLine(std::istream & is) {
 bool Lexer::forEachChar(std::string & line, unsigned int numLine) {
 	unsigned int i = 0;
 	unsigned int numCol = 0;
-	unsigned int limit = 0;
 	std::string::iterator it = line.begin();
 
 	while (it != line.end()) {
+		//this->printStatus();
+		//std::cout << "|" << *it << "| " << std::endl;
 		if (matchToken(*it)) {
 			this->updateStatus();
+			//std::cout << "HERE1" << std::endl;
 			it++;
 			i++;
 		} else {
+			//std::cout << "HERE2" << std::endl;
 			e_tk token = this->pushToken(numLine, numCol);
 			if (token == NB_TK) {
 				this->pushError(numLine, numCol);
-				if (matchToken(*it)) {
-					limit++;
+				if (matchToken(*it))
 					this->updateStatus();
-				} else {
-					it++;
-					i++;
-				}
+				it++;
 			}
-			if (token == TK_DSEMI_COL || limit > 1)
+			if (token == TK_DSEMI_COL)
 				return true ;
 			if (token == TK_COMMENT) {
 				return false ;

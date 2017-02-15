@@ -88,8 +88,9 @@ void VirtualMachine::execInstrDump(std::list<ParsedNode *>::iterator &it) {
 
 void VirtualMachine::execInstrAssert(std::list<ParsedNode *>::iterator &it) {
 	IOperand const * opTop = *this->_OpStack.begin();
+	std::cout << "LOL" << std::endl;
 	std::string value = getValueOnly((*it)->getValue());
-	if (opTop->toString().compare(value) != 0 || opTop->getType() != this->getEnumOperand((*it)->getTkValue()))
+	if (opTop && (opTop->toString().compare(value) != 0 || opTop->getType() != this->getEnumOperand((*it)->getTkValue())))
 		throw VirtualMachine::AssertException();
 	if (*it)
 		;
