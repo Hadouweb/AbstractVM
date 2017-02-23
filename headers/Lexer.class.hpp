@@ -39,6 +39,7 @@ private:
 	Lexer & operator=(Lexer const & rhs);
 	void forEachLine(std::istream & is);
 	bool forEachChar(std::string & line, unsigned int numLine);
+	e_tk findCaracter(char c, unsigned int numCol, unsigned int numLine, bool reCheck);
 	void updateStatus(void);
 	enum e_tk pushToken(unsigned int line, unsigned int col);
 	void pushError(unsigned int line, unsigned int col);
@@ -106,7 +107,6 @@ private:
 	void printStatus(void);
 
 	std::vector<Status> _status;
-	std::vector<uint8_t> _state;
 	std::vector<std::string> _chunk;
 	bool _modeCin;
 };

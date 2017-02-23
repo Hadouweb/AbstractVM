@@ -1,13 +1,13 @@
 #include "Lexer.class.hpp"
 
 Lexer::Lexer(void)
-	: _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _state(NB_TK), _chunk(NB_TK) {
+	: _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _chunk(NB_TK) {
 	this->_modeCin = true;
 	this->forEachLine(std::cin);
 }
 
 Lexer::Lexer(std::string fileName)
-	: _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _state(NB_TK), _chunk(NB_TK) {
+	: _status(NB_TK, { STS_HUNGRY, STS_REJECT } ), _chunk(NB_TK) {
 	std::ifstream ifs(fileName);
 	if (!ifs.good()) {
 		std::cerr << "File not found" << std::endl;
@@ -45,45 +45,49 @@ std::list<Node *> Lexer::getErrorList(void) const {
 
 #define TOKEN_DEFINE_1(funcName, str) \
 e_sts Lexer::funcName(const char c, const uint8_t index) { \
-	switch(this->_state[index]) { \
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_ACCEPT) : (this->_state[index] = 0, STS_REJECT); \
-		case 1: return this->_state[index] = 0, STS_REJECT; \
+	unsigned int s = this->_chunk[index].length(); \
+	switch(s) { \
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_ACCEPT) : (STS_REJECT); \
+		case 1: return  STS_REJECT; \
 		default: abort(); \
 	} \
 }
 
 #define TOKEN_DEFINE_3(funcName, str) \
 e_sts Lexer::funcName(const char c, const uint8_t index) { \
-	switch(this->_state[index]) { \
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_ACCEPT) : (this->_state[index] = 0, STS_REJECT); \
-		case 3: return this->_state[index] = 0, STS_REJECT; \
+	unsigned int s = this->_chunk[index].length(); \
+	switch(s) { \
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT); \
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_ACCEPT) : (STS_REJECT); \
+		case 3: return STS_REJECT; \
 		default: abort(); \
 	} \
 }
 
 #define TOKEN_DEFINE_4(funcName, str) \
 e_sts Lexer::funcName(const char c, const uint8_t index) { \
-	switch(this->_state[index]) { \
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 3: return c == str[3] ? (this->_state[index] = 4, STS_ACCEPT) : (this->_state[index] = 0, STS_REJECT); \
-		case 4: return this->_state[index] = 0, STS_REJECT; \
+	unsigned int s = this->_chunk[index].length(); \
+	switch(s) { \
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT); \
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 3: return c == str[3] ? (this->_chunk[index] += c, STS_ACCEPT) : (STS_REJECT); \
+		case 4: return STS_REJECT; \
 		default: abort(); \
 	} \
 }
 
 #define TOKEN_DEFINE_5(funcName, str) \
 e_sts Lexer::funcName(const char c, const uint8_t index) { \
-	switch(this->_state[index]) { \
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 3: return c == str[3] ? (this->_state[index] = 4, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 4: return c == str[4] ? (this->_state[index] = 5, STS_ACCEPT) : (this->_state[index] = 0, STS_REJECT); \
-		case 5: return this->_state[index] = 0, STS_REJECT; \
+	unsigned int s = this->_chunk[index].length(); \
+	switch(s) { \
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT); \
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 3: return c == str[3] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 4: return c == str[4] ? (this->_chunk[index] += c, STS_ACCEPT) : (STS_REJECT); \
+		case 5: return STS_REJECT; \
 		default: abort(); \
 	} \
 }
@@ -91,18 +95,18 @@ e_sts Lexer::funcName(const char c, const uint8_t index) { \
 
 #define TOKEN_DEFINE_6(funcName, str) \
 e_sts Lexer::funcName(const char c, const uint8_t index) { \
-	switch(this->_state[index]) { \
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 3: return c == str[3] ? (this->_state[index] = 4, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 4: return c == str[4] ? (this->_state[index] = 5, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT); \
-		case 5: return c == str[5] ? (this->_state[index] = 6, STS_ACCEPT) : (this->_state[index] = 0, STS_REJECT); \
-		case 6: return this->_state[index] = 0, STS_REJECT; \
+	unsigned int s = this->_chunk[index].length(); \
+	switch(s) { \
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT); \
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 3: return c == str[3] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 4: return c == str[4] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT); \
+		case 5: return c == str[5] ? (this->_chunk[index] += c, STS_ACCEPT) : (STS_REJECT); \
+		case 6: return STS_REJECT; \
 		default: abort(); \
 	} \
 }
-
 
 TOKEN_DEFINE_4(tkPush, "push");
 TOKEN_DEFINE_3(tkPop, "pop");
@@ -121,208 +125,172 @@ TOKEN_DEFINE_1(tkWhiteSpace, " ");
 
 e_sts Lexer::tkDSemiCol(const char c, const uint8_t index) {
 	std::string str = ";;";
-	if (this->_modeCin == false) {
+	unsigned int s = this->_chunk[index].length();
+	if (this->_modeCin == false)
 		return STS_REJECT;
-	}
-	switch(this->_state[index]) {
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_ACCEPT) : (this->_state[index] = 0, STS_REJECT);
-		case 2: return this->_state[index] = 0, STS_REJECT;
+	switch(s) {
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT);
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_ACCEPT) : (STS_REJECT);
+		case 2: return STS_REJECT;
 		default: abort();
 	}
 }
 
 e_sts Lexer::tkInt8(const char c, const uint8_t index) {
 	std::string str = "int8(";
-	switch(this->_state[index]) {
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 3: return c == str[3] ? (this->_state[index] = 4, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 4: return c == str[4] ? (this->_state[index] = 5, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 5: return (c == '-' || isdigit(c)) ? (this->_state[index] = 6, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
+	unsigned int s = this->_chunk[index].length();
+	switch(s) {
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT);
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 3: return c == str[3] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 4: return c == str[4] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 5: return (c == '-' || isdigit(c)) ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
 		default: {
-			if (this->_state[index] < 0)
-				abort();
-			else {
-				if (isdigit(c)) {
-					this->_state[index]++;
-					return STS_HUNGRY;
-				} else if (c == ')') {
-					int i = this->_state[index] - 1;
-					if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i])) {
-						this->_state[index]++;
-						return STS_ACCEPT;
-					} else {
-						this->_state[index] = 0;
-						return STS_REJECT;
-					}
+			if (isdigit(c)) {
+				this->_chunk[index] += c;
+				return STS_HUNGRY;
+			} else if (c == ')') {
+				int i = s - 1;
+				if (this->_chunk[index].length() > static_cast<size_t>(i) && isdigit(this->_chunk[index][i])) {
+					this->_chunk[index] += c;
+					return STS_ACCEPT;
+				} else {
+					return STS_REJECT;
 				}
-				//std::cout << "[" << c << "]" << std::endl;
-				this->_state[index] = 0;
-				return STS_REJECT;
 			}
+			return STS_REJECT;
 		}
 	}
 }
 
 e_sts Lexer::tkInt16(const char c, const uint8_t index) {
 	std::string str = "int16(";
-	switch(this->_state[index]) {
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 3: return c == str[3] ? (this->_state[index] = 4, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 4: return c == str[4] ? (this->_state[index] = 5, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 5: return c == str[5] ? (this->_state[index] = 6, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 6: return (c == '-' || isdigit(c)) ? (this->_state[index] = 7, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
+	unsigned int s = this->_chunk[index].length();
+	switch(s) {
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT);
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 3: return c == str[3] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 4: return c == str[4] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 5: return c == str[5] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 6: return (c == '-' || isdigit(c)) ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
 		default: {
-			if (this->_state[index] < 0)
-				abort();
-			else {
-				if (isdigit(c)) {
-					this->_state[index]++;
-					return STS_HUNGRY;
-				} else if (c == ')') {
-					int i = this->_state[index] - 1;
-					if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i])) {
-						this->_state[index]++;
-						return STS_ACCEPT;
-					} else {
-						this->_state[index] = 0;
-						return STS_REJECT;
-					}
+			if (isdigit(c)) {
+				this->_chunk[index] += c;
+				return STS_HUNGRY;
+			} else if (c == ')') {
+				int i = s - 1;
+				if (this->_chunk[index].length() > static_cast<size_t>(i) && isdigit(this->_chunk[index][i])) {
+					this->_chunk[index] += c;
+					return STS_ACCEPT;
+				} else {
+					return STS_REJECT;
 				}
-				//std::cout << "[" << c << "]" << std::endl;
-				this->_state[index] = 0;
-				return STS_REJECT;
 			}
+			return STS_REJECT;
 		}
 	}
 }
 
 e_sts Lexer::tkInt32(const char c, const uint8_t index) {
 	std::string str = "int32(";
-	switch(this->_state[index]) {
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 3: return c == str[3] ? (this->_state[index] = 4, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 4: return c == str[4] ? (this->_state[index] = 5, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 5: return c == str[5] ? (this->_state[index] = 6, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 6: return (c == '-' || isdigit(c)) ? (this->_state[index] = 7, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
+	unsigned int s = this->_chunk[index].length();
+	switch(s) {
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT);
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 3: return c == str[3] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 4: return c == str[4] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 5: return c == str[5] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 6: return (c == '-' || isdigit(c)) ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
 		default: {
-			if (this->_state[index] < 0)
-				abort();
-			else {
-				if (isdigit(c)) {
-					this->_state[index]++;
-					return STS_HUNGRY;
-				} else if (c == ')') {
-					int i = this->_state[index] - 1;
-					if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i])) {
-						this->_state[index]++;
-						return STS_ACCEPT;
-					} else {
-						this->_state[index] = 0;
-						return STS_REJECT;
-					}
+			if (isdigit(c)) {
+				this->_chunk[index] += c;
+				return STS_HUNGRY;
+			} else if (c == ')') {
+				int i = s - 1;
+				if (this->_chunk[index].length() > static_cast<size_t>(i) && isdigit(this->_chunk[index][i])) {
+					this->_chunk[index] += c;
+					return STS_ACCEPT;
+				} else {
+					return STS_REJECT;
 				}
-				//std::cout << "[" << c << "]" << std::endl;
-				this->_state[index] = 0;
-				return STS_REJECT;
 			}
+			return STS_REJECT;
 		}
 	}
 }
 
 e_sts Lexer::tkFloat(const char c, const uint8_t index) {
 	std::string str = "float(";
-	switch(this->_state[index]) {
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 3: return c == str[3] ? (this->_state[index] = 4, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 4: return c == str[4] ? (this->_state[index] = 5, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 5: return c == str[5] ? (this->_state[index] = 6, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 6: return (c == '-' || isdigit(c)) ? (this->_state[index] = 7, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
+	unsigned int s = this->_chunk[index].length();
+	switch(s) {
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT);
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 3: return c == str[3] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 4: return c == str[4] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 5: return c == str[5] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 6: return (c == '-' || isdigit(c)) ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
 		default: {
-			if (this->_state[index] < 0)
-				abort();
-			else {
-				if (isdigit(c)) {
-					this->_state[index]++;
+			if (isdigit(c)) {
+				this->_chunk[index] += c;
+				return STS_HUNGRY;
+			} else if (c == '.') {
+				int i = s - 1;
+				if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i])) {
+					this->_chunk[index] += c;
 					return STS_HUNGRY;
-				} else if (c == '.') {
-					int i = this->_state[index] - 1;
-					if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i])) {
-						this->_state[index]++;
-						return STS_HUNGRY;
-					} else {
-						this->_state[index] = 0;
-						return STS_REJECT;
-					}
-				} else if (c == ')') {
-					int i = this->_state[index] - 1;
-					int NbPoint = std::count(this->_chunk[index].begin(), this->_chunk[index].end(), '.');
-					if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i]) && NbPoint == 1) {
-						this->_state[index]++;
-						return STS_ACCEPT;
-					} else {
-						this->_state[index] = 0;
-						return STS_REJECT;
-					}
-				}
-				//std::cout << "[" << c << "]" << std::endl;
-				this->_state[index] = 0;
-				return STS_REJECT;
+				} else
+					return STS_REJECT;
+			} else if (c == ')') {
+				int i = s - 1;
+				int NbPoint = std::count(this->_chunk[index].begin(), this->_chunk[index].end(), '.');
+				if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i]) && NbPoint == 1) {
+					this->_chunk[index] += c;
+					return STS_ACCEPT;
+				} else
+					return STS_REJECT;
 			}
+			return STS_REJECT;
 		}
 	}
 }
 
 e_sts Lexer::tkDouble(const char c, const uint8_t index) {
 	std::string str = "double(";
-	switch(this->_state[index]) {
-		case 0: return c == str[0] ? (this->_state[index] = 1, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 1: return c == str[1] ? (this->_state[index] = 2, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 2: return c == str[2] ? (this->_state[index] = 3, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 3: return c == str[3] ? (this->_state[index] = 4, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 4: return c == str[4] ? (this->_state[index] = 5, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 5: return c == str[5] ? (this->_state[index] = 6, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 6: return c == str[6] ? (this->_state[index] = 7, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
-		case 7: return (c == '-' || isdigit(c)) ? (this->_state[index] = 8, STS_HUNGRY) : (this->_state[index] = 0, STS_REJECT);
+	unsigned int s = this->_chunk[index].length();
+	switch(s) {
+		case 0: return c == str[0] ? (this->_chunk[index] = c, STS_HUNGRY) : (STS_REJECT);
+		case 1: return c == str[1] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 2: return c == str[2] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 3: return c == str[3] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 4: return c == str[4] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 5: return c == str[5] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 6: return c == str[6] ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
+		case 7: return (c == '-' || isdigit(c)) ? (this->_chunk[index] += c, STS_HUNGRY) : (STS_REJECT);
 		default: {
-			if (this->_state[index] < 0)
-				abort();
-			else {
-				if (isdigit(c)) {
-					this->_state[index]++;
+			if (isdigit(c)) {
+				this->_chunk[index] += c;
+				return STS_HUNGRY;
+			} else if (c == '.') {
+				int i = s - 1;
+				if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i])) {
+					this->_chunk[index] += c;
 					return STS_HUNGRY;
-				} else if (c == '.') {
-					int i = this->_state[index] - 1;
-					if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i])) {
-						this->_state[index]++;
-						return STS_HUNGRY;
-					} else {
-						this->_state[index] = 0;
-						return STS_REJECT;
-					}
-				} else if (c == ')') {
-					int i = this->_state[index] - 1;
-					int NbPoint = std::count(this->_chunk[index].begin(), this->_chunk[index].end(), '.');
-					if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i]) && NbPoint == 1) {
-						this->_state[index]++;
-						return STS_ACCEPT;
-					} else {
-						this->_state[index] = 0;
-						return STS_REJECT;
-					}
-				}
-				//std::cout << "[" << c << "]" << std::endl;
-				this->_state[index] = 0;
-				return STS_REJECT;
+				} else
+					return STS_REJECT;
+			} else if (c == ')') {
+				int i = s - 1;
+				int NbPoint = std::count(this->_chunk[index].begin(), this->_chunk[index].end(), '.');
+				if (this->_chunk[index].length() > static_cast<size_t >(i) && isdigit(this->_chunk[index][i]) && NbPoint == 1) {
+					this->_chunk[index] += c;
+					return STS_ACCEPT;
+				} else
+					return STS_REJECT;
 			}
+			return STS_REJECT;
 		}
 	}
 }
@@ -341,7 +309,6 @@ bool Lexer::matchToken(const char c) {
 			this->_status[i].curr = (this->**it)(c, i);
 		if (this->_status[i].curr != STS_REJECT) {
 			find = true;
-			this->_chunk[i] += c;
 		}
 		i++;
 	}
@@ -381,53 +348,57 @@ void Lexer::forEachLine(std::istream & is) {
 	unsigned int numLine = 0;
 
 	while (getline(is, line)) {
+		line += "\n";
 		if (this->forEachChar(line, numLine) == true)
 			break ;
-		this->_nodeList.push_back(new Node(TK_END_LINE, "", numLine, line.length()));
+		if (line.length() > 1)
+			this->_nodeList.push_back(new Node(TK_END_LINE, "\n", numLine, line.length()));
 		numLine++;
 	}
 }
 
 bool Lexer::forEachChar(std::string & line, unsigned int numLine) {
-	unsigned int i = 0;
+	unsigned int tmpCol = 0;
 	unsigned int numCol = 0;
 	std::string::iterator it = line.begin();
 
 	while (it != line.end()) {
-		//this->printStatus();
-		//std::cout << "|" << *it << "| " << std::endl;
-		if (matchToken(*it)) {
-			this->updateStatus();
-			//std::cout << "HERE1" << std::endl;
-			it++;
-			i++;
-		} else {
-			//std::cout << "HERE2" << std::endl;
-			e_tk token = this->pushToken(numLine, numCol);
-			if (token == NB_TK) {
-				this->pushError(numLine, numCol);
-				if (matchToken(*it))
-					this->updateStatus();
-				it++;
-			}
-			if (token == TK_DSEMI_COL)
-				return true ;
-			if (token == TK_COMMENT) {
-				return false ;
-			}
-			if (token == TK_END_LINE) {
-				i = 0;
-			}
-			numCol = i;
-		}
+		e_tk token = findCaracter(*it, numCol, numLine, false);
+		//std::cout << Node::convertEnumTk(token) << " " << *it << std::endl;
+		if (token != NB_TK)
+			numCol = tmpCol;
+		if (token == TK_DSEMI_COL)
+			return true;
+		if (token == TK_COMMENT)
+			return false;
+		it++;
+		tmpCol++;
 	}
-
-	if (matchToken(*it))
-		this->updateStatus();
-	e_tk token = this->pushToken(numLine, numCol);
-	if (token == TK_DSEMI_COL)
-		return true;
+	this->pushToken(numLine, numCol);
 	return false;
+}
+
+e_tk Lexer::findCaracter(char c, unsigned int numCol, unsigned int numLine, bool reCheck) {
+	if (matchToken(c)) {
+		this->updateStatus();
+	} else {
+		e_tk token = this->pushToken(numLine, numCol);
+		//std::cout << Node::convertEnumTk(token) << " " << c << std::endl;
+		if (token == TK_DSEMI_COL)
+			return TK_DSEMI_COL;
+		if (token == TK_COMMENT)
+			return TK_COMMENT;
+		if (token == NB_TK) {
+			if (reCheck == false)
+				this->findCaracter(c, numCol, numLine, true);
+			else
+				this->pushError(numLine, numCol);
+		} else
+			this->findCaracter(c, numCol, numLine, false);
+
+		return token;
+	}
+	return NB_TK;
 }
 
 Lexer::UnknownTokenException::UnknownTokenException(void) { }
@@ -473,14 +444,14 @@ std::string Lexer::convertStsEnum(enum e_sts sts) {
 void Lexer::printStatus(void) {
 	for(int i = 0; i < NB_TK; i++) {
 		e_tk tk = static_cast<e_tk>(i);
-		std::cout << Node::convertEnumTk(tk) << "\t | ";
-		std::cout << (int)this->_state[i] << " | ";
+		std::cout << Node::convertEnumTk(tk) << "\t";
 		std::cout << this->_status[i];
+		std::cout << " |" << this->_chunk[i] << "|" << std::endl;
 	}
 }
 
 std::ostream &operator<<(std::ostream &os, Status &s) {
 	os << "prev: " << Lexer::convertStsEnum(s.prev);
-	os << " | curr: " << Lexer::convertStsEnum(s.curr) << std::endl;
+	os << " | curr: " << Lexer::convertStsEnum(s.curr);
 	return os;
 }
