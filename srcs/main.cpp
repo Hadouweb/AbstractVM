@@ -45,7 +45,6 @@ int		main(int ac, char **av) {
 	*/
 
 	VirtualMachine VM(parsedListParser);
-	while(42)
-		;
+
 	return 0;
 }
